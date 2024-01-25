@@ -34,9 +34,9 @@ typedef struct s_game_map
 
 typedef struct s_render_v
 {
-	void *mlx;
-	void *win;
-} t_render_v;
+	void *mlx_ptr;
+	void *win_ptr;
+} t_data;
 
 t_game_map **init_game_map(int fd, t_game_map **all_map, char *file_path);
 void init_array(char *line, t_game_map **map, int current_line);
@@ -49,4 +49,7 @@ int check_walls(char *line, int line_type);
 int check_rectangular(char *line);
 int check_game(char *line);
 void reset_game_checks();
+
+int on_destroy(t_data *data);
+int on_keypress(int keysym, t_data *data);
 #endif

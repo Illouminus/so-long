@@ -6,7 +6,7 @@
 /*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:30:11 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/25 15:52:47 by ebaillot         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:39:03 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int check_mediums_lines(char *line)
 
     while (i < length)
     {
-        if (line[i] != '1' && line[i] != '0' && line[i] != 'C' && line[i] != 'P' && line[i] != 'E')
+        if (line[0] != '1' && line[length] != '1')
             return (0);
         i++;
     }

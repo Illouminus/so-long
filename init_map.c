@@ -6,7 +6,7 @@
 /*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 15:42:39 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/25 15:54:24 by ebaillot         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:39:31 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_game_map **init_game_map(int fd, t_game_map **all_map, char *file_path)
 	
 	while ((line = get_next_line(fd)) != NULL)
 	{
-		int line_type = (current_line == 0) ? 1 : ((current_line == num_of_lines - 1) ? 3 : 2);
+		line_type = (current_line == 0) ? 1 : ((current_line == num_of_lines - 1) ? 3 : 2);
 		 if (line_type == 2 && !check_game(line))
 			{
 				free_game_map(all_map, current_line);
@@ -76,13 +76,8 @@ t_game_map **init_game_map(int fd, t_game_map **all_map, char *file_path)
 			current_line++;
 		}
 		free(line);
-		num_of_lines++;
 	}
 	
-    for (int i = 0; i < current_line; i++)
-    {
-        printf("Line %d: %s\n", i, (*all_map)->map_data[i]);
-    }
 	
 	return all_map;
 }
