@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_walls.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:30:11 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/25 11:55:22 by edouard          ###   ########.fr       */
+/*   Updated: 2024/01/25 15:52:47 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,61 @@
 
 static int check_first_line(char *line)
 {
-	int i;
+    int i = 0;
+    int length = ft_strlen(line);
 
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] != '1')
-			return (0);
-		i++;
-	}
-	return (1);
+    if (line[length - 1] == '\n') {
+        length--;
+    }
+
+    while (i < length)
+    {
+        if (line[i] != '1')
+            return (0);
+        i++;
+    }
+    return (1);
 }
 
 static int check_mediums_lines(char *line)
 {
-	int i;
+    int i = 0;
+    int length = ft_strlen(line);
 
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] != '1' && line[i] != '0')
-			return (0);
-		i++;
-	}
-	return (1);
+    if (line[length - 1] == '\n') {
+        length--;
+    }
+
+    while (i < length)
+    {
+        if (line[i] != '1' && line[i] != '0' && line[i] != 'C' && line[i] != 'P' && line[i] != 'E')
+            return (0);
+        i++;
+    }
+    return (1);
 }
 
 static int check_last_line(char *line)
 {
-	int i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] != '1')
-			return (0);
-		i++;
-	}
-	return (1);
+    int i = 0;
+    while (line[i])
+    {
+        if (line[i] != '1')
+            return (0);
+        i++;
+    }
+    return (1);
 }
 
-int check_walls(char *line)
+
+int check_walls(char *line, int line_type)
 {
-	if (check_first_line(line) && check_mediums_lines(line) && check_last_line(line))
-		return (1);
-	else
-		print_errors("Map is not surrounded by walls");
+    if (line_type == 1 && !check_first_line(line))
+        print_errors("First line is not valid");
+    else if (line_type == 3 && !check_last_line(line))
+        print_errors("Last line is not valid");
+    else if (line_type == 2 && !check_mediums_lines(line))
+        print_errors("Medium line is not valid");
+
+    return (1);
 }

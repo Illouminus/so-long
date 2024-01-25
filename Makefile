@@ -1,5 +1,5 @@
 NAME = so_long
-CC = gcc
+CC = gcc -g
 RM = rm -f
 CFLAGS = 
 INCLUDES = -I./includes -I./libft -I./mlx -I./printf
