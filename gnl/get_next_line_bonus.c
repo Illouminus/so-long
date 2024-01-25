@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 12:17:46 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/15 14:30:34 by ebaillot         ###   ########.fr       */
+/*   Updated: 2024/01/15 14:29:48 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 /* read_and_store */
 char	*read_from_fd(int fd, char *readed)
@@ -93,17 +93,17 @@ char	*ft_strchr(const char *s, int c)
 /* get_next_line */
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	static char	*buffer[1024];
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!read_and_store(fd, &buffer) || !*buffer)
+	if (!read_and_store(fd, &buffer[fd]) || !*buffer[fd])
 	{
-		free(buffer);
-		buffer = NULL;
+		free(buffer[fd]);
+		buffer[fd] = NULL;
 		return (NULL);
 	}
-	return (process_line(&buffer));
+	return (process_line(&buffer[fd]));
 }
 
 // #include <fcntl.h>

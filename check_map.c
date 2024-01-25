@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 15:42:39 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/24 21:17:12 by edouard          ###   ########.fr       */
+/*   Updated: 2024/01/25 08:28:07 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_game_map **init_game_map(int fd, t_game_map **map_data)
 {
 	char *line;
 	int is_last_line = 0;
-
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		printf("Read line: %s\n", line);
