@@ -7,7 +7,7 @@ INCLUDES = -I./includes -I./libft -I./mlx -I./printf
 LIBFT = ./libft/libft.a
 PRINTF = ./printf/libftprintf.a
 
-SRCS = so_long.c check_map.c gnl/get_next_line.c gnl/get_next_line_utils.c
+SRCS = so_long.c init_map.c checkers/check_map.c checkers/check_walls.c checkers/check_game.c gnl/get_next_line.c gnl/get_next_line_utils.c
 
 OBJS = $(SRCS:.c=.o)
 

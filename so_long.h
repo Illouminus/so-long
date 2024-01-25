@@ -38,12 +38,13 @@ typedef struct s_render_v
 	void *win;
 } t_render_v;
 
+t_game_map **init_game_map(int fd, t_game_map **map_data);
+void init_array(char *line, t_game_map **map, int current_line);
+
+// CHECKERS
 int check_params(int argc, char **argv, int fd);
 void print_errors(char *error);
-
-t_game_map **init_game_map(int fd, t_game_map **map_data);
-
 int check_walls(char *line);
-int check_length(char *line, int is_last_line);
-
+int check_rectangular(char *line);
+int check_game(char *line);
 #endif
