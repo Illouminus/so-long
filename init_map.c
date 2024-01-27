@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 15:42:39 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/27 16:56:38 by edouard          ###   ########.fr       */
+/*   Updated: 2024/01/27 21:33:03 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_game_map **init_game_map(int fd, t_game_map **all_map, char *file_path)
 		return NULL;
 	}
 	(*all_map)->map_height = num_of_lines;
-	(*all_map)->map_length = 0;
+	(*all_map)->map_length = -1;
 	(*all_map)->usual_texture_height = 32;
 	(*all_map)->usual_texture_width = 32;
 

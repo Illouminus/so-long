@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:16:52 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/27 17:26:31 by edouard          ###   ########.fr       */
+/*   Updated: 2024/01/27 21:23:08 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,22 @@ void ft_load_textures(t_data *data, t_game_map **map)
 {
 	(*map)->floor = mlx_xpm_file_to_image(data->mlx_ptr, "./textures/floor.xpm", &(*map)->usual_texture_width, &(*map)->usual_texture_height);
 	if (!(*map)->floor)
+	{
 		ft_free_textures(data, map);
+		exit(0);
+	}
 	(*map)->wall = mlx_xpm_file_to_image(data->mlx_ptr, "./textures/wall.xpm", &(*map)->usual_texture_width, &(*map)->usual_texture_height);
 	if (!(*map)->wall)
+	{
 		ft_free_textures(data, map);
-	// Загрузка других текстур...
+		exit(0);
+	}
+	(*map)->wall_map = mlx_xpm_file_to_image(data->mlx_ptr, "./textures/wall_map.xpm", &(*map)->usual_texture_width, &(*map)->usual_texture_height);
+	if (!(*map)->wall_map)
+	{
+		ft_free_textures(data, map);
+		exit(0);
+	}
 }
 
 void ft_put_textures(t_data *data, t_game_map **map)

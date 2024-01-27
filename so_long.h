@@ -24,6 +24,7 @@ typedef struct s_game_map
 	int steps;
 	void *end_img;
 	void *wall;
+	void *wall_map;
 	void *exit;
 	void *player;
 	void *floor;
@@ -61,4 +62,6 @@ void ft_load_second_layer(t_data *data, t_game_map **map);
 void ft_load_textures(t_data *data, t_game_map **map);
 void ft_put_textures(t_data *data, t_game_map **map);
 void ft_free_textures(t_data *data, t_game_map **map);
+
+void set_background_color(t_data *data, int color, t_game_map **map);
 #endif
