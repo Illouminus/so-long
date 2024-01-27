@@ -63,5 +63,5 @@ void ft_load_textures(t_data *data, t_game_map **map);
 void ft_put_textures(t_data *data, t_game_map **map);
 void ft_free_textures(t_data *data, t_game_map **map);
 
-void set_background_color(t_data *data, int color, t_game_map **map);
+void ft_load_three_layer(t_data *data, t_game_map **map);
 #endif

@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:51:12 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/27 21:40:30 by edouard          ###   ########.fr       */
+/*   Updated: 2024/01/27 23:03:15 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,27 @@ void ft_load_second_layer(t_data *data, t_game_map **map)
 				else
 					mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, (*map)->wall_map, x * 32, y * 32);
 			}
+			x++;
+		}
+		y++;
+	}
+}
+
+void ft_load_three_layer(t_data *data, t_game_map **map)
+{
+	int y;
+	int x;
+
+	y = 0;
+	while (y < (*map)->map_height)
+	{
+		x = 0;
+		while (x < (*map)->map_length)
+		{
+			if ((*map)->map_data[y][x] == 'P')
+				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, (*map)->player, x * 32, y * 32);
+			if ((*map)->map_data[y][x] == 'C')
+				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, (*map)->items, x * 32, y * 32);
 			x++;
 		}
 		y++;
