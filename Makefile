@@ -17,8 +17,8 @@ UNAME := $(shell uname)
 
 
 ifeq ($(UNAME), Darwin) 
-   INCLUDES = -I./includes -I./libft -I./printf -I/opt/X11/include
-   MLX_FLAGS = -Lmlx -lmlx -L/usr/X11/lib -lXext -lX11 -framework OpenGL -framework AppKit
+   INCLUDES = -I./includes -I./libft -I./printf -I./mlx
+   MLX_FLAGS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 else
     INCLUDES = -I./includes -I./libft -I./printf -I./mlx
     MLX_FLAGS = -L$(MLX_DIR) -lmlx -lX11 -lXext -lm
