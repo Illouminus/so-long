@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 14:02:23 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/27 09:11:25 by edouard          ###   ########.fr       */
+/*   Updated: 2024/01/27 16:57:25 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,18 @@ int main(int argc, char **argv)
 	t_game_map *game_map;
 	t_data data;
 	game_map = NULL;
-
 	data.mlx_ptr = mlx_init();
 	if (!data.mlx_ptr)
 		return (1);
-	data.win_ptr = mlx_new_window(data.mlx_ptr, 1000, 700, "1000x700");
+
 	if (!data.win_ptr)
 		return (free(data.mlx_ptr), 1);
 	fd = open(argv[1], O_RDONLY);
 	if (check_params(argc, argv, fd))
 		init_game_map(fd, &game_map, argv[1]);
+
+	data.win_ptr = mlx_new_window(data.mlx_ptr, game_map->map_length * 32, game_map->map_height * 32, "So Long");
+	load_map(&data, &game_map);
 
 	mlx_hook(data.win_ptr, 2, 1L << 0, &on_keypress, &data);
 
@@ -51,5 +53,6 @@ int main(int argc, char **argv)
 
 	// Loop over the MLX pointer
 	mlx_loop(data.mlx_ptr);
+
 	return (1);
 }

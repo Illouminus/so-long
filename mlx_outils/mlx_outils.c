@@ -3,12 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_outils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 18:57:41 by ebaillot          #+#    #+#             */
-/*   Updated: 2024/01/25 19:15:00 by ebaillot         ###   ########.fr       */
+/*   Updated: 2024/01/27 17:18:43 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
+void load_map(t_data *data, t_game_map **map)
+{
+	ft_load_textures(data, map);
+	ft_put_textures(data, map);
+}

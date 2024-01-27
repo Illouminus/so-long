@@ -30,6 +30,8 @@ typedef struct s_game_map
 	void *items;
 	void *enemy;
 	int *enemypos;
+	int usual_texture_width;
+	int usual_texture_height;
 } t_game_map;
 
 typedef struct s_render_v
@@ -52,4 +54,11 @@ void reset_game_checks();
 
 int on_destroy(t_data *data);
 int on_keypress(int keysym, t_data *data);
+
+void load_map(t_data *data, t_game_map **map);
+void ft_load_first_layer(t_data *data, t_game_map **map);
+void ft_load_second_layer(t_data *data, t_game_map **map);
+void ft_load_textures(t_data *data, t_game_map **map);
+void ft_put_textures(t_data *data, t_game_map **map);
+void ft_free_textures(t_data *data, t_game_map **map);
 #endif
