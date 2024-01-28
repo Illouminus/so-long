@@ -1,6 +1,11 @@
 #ifndef SO_LONG_H
 #define SO_LONG_H
 
+#define KEY_W 14
+#define KEY_A 1
+#define KEY_S 2
+#define KEY_D 3
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -63,18 +68,20 @@ typedef struct s_game_map
 	int usual_texture_height;
 } t_game_map;
 
-typedef struct s_render_v
-{
-	void *mlx_ptr;
-	void *win_ptr;
-} t_data;
-
 typedef struct s_game_state
 {
 	t_data *data;
 	t_game_map *game_map;
 	t_sheep *sheep;
+	t_player *player;
 } t_game_state;
+
+typedef struct s_render_v
+{
+	void *mlx_ptr;
+	void *win_ptr;
+	t_game_state *game_state;
+} t_data;
 
 // INITIALIZERS MAP ARRAY
 t_game_map **init_game_map(int fd, t_game_map **all_map, char *file_path);
@@ -94,7 +101,7 @@ int on_destroy(t_data *data);
 int on_keypress(int keysym, t_data *data);
 
 // LOADERS AND DRAWERS MAP
-void load_map(t_data *data, t_game_map **map, t_sheep *sheep);
+void load_map(t_data *data, t_game_map **map, t_sheep *sheep, t_player *player);
 
 void ft_load_textures(t_data *data, t_game_map **map);
 void ft_put_textures(t_data *data, t_game_map **map, t_sheep *sheep);

@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 14:02:23 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/28 20:23:27 by edouard          ###   ########.fr       */
+/*   Updated: 2024/01/28 22:26:54 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,10 @@ int on_destroy(t_data *data)
 
 int on_keypress(int keysym, t_data *data)
 {
-	if (keysym == 14 || keysym == 2 || keysym == 3 || keysym == 1)
-	{
-		keypress_count++;
-		printf("Keypress Count: %d\n", keysym);
-	}
-	printf("data address: %p\n", data);
+	t_game_state *game_state = data->game_state; // Предполагаем, что у вас есть доступ к game_state через data
+
+	handle_player_movement(keysym, game_state->player);
+
 	return (0);
 }
 
@@ -58,7 +56,10 @@ int main(int argc, char **argv)
 	t_game_map *game_map;
 	t_data data;
 	t_sheep *sheep;
+	t_player *player;
+
 	t_game_state *game_state = malloc(sizeof(t_game_state));
+
 	if (!game_state)
 	{
 		// Обработка ошибки выделения памяти
@@ -80,7 +81,7 @@ int main(int argc, char **argv)
 	if (!data.win_ptr)
 		return (free(data.mlx_ptr), 1);
 
-	load_map(&data, &game_map, sheep);
+	load_map(&data, &game_map, sheep, player);
 	if (sheep == NULL || game_map == NULL)
 	{
 		free(game_state);
