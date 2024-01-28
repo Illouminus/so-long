@@ -6,11 +6,13 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 14:02:23 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/28 19:21:05 by edouard          ###   ########.fr       */
+/*   Updated: 2024/01/28 20:23:27 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int keypress_count = 0;
 
 int game_loop(t_game_state *game_state)
 {
@@ -41,7 +43,12 @@ int on_destroy(t_data *data)
 
 int on_keypress(int keysym, t_data *data)
 {
-	printf("Pressed key: %d\\n", keysym);
+	if (keysym == 14 || keysym == 2 || keysym == 3 || keysym == 1)
+	{
+		keypress_count++;
+		printf("Keypress Count: %d\n", keysym);
+	}
+	printf("data address: %p\n", data);
 	return (0);
 }
 

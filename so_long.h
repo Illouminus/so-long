@@ -13,6 +13,21 @@
 #include "printf/ft_printf.h"
 #include "gnl/get_next_line.h"
 
+typedef struct s_player
+{
+	int x;
+	int y;
+	void **sprites_up;
+	void **sprites_down;
+	void **sprites_left;
+	void **sprites_right;
+	int current_sprite;
+	clock_t last_update;
+	int frame_count;
+	bool is_moving;
+	char direction; // 'U' - вверх, 'D' - вниз, 'L' - влево, 'R' - вправо
+} t_player;
+
 typedef struct s_sheep
 {
 	int x;
@@ -39,7 +54,7 @@ typedef struct s_game_map
 	void *wall;
 	void *wall_map;
 	void *exit;
-	void *player;
+	t_player player;
 	void *floor;
 	t_sheep *sheep;
 	void *enemy;
@@ -92,4 +107,6 @@ void ft_load_three_layer(t_data *data, t_game_map **map, t_sheep *sheep);
 void init_and_load_sheep(t_data *data, t_sheep **sheep, t_game_map **map);
 void drawSheep(t_data *data, t_sheep *sheep);
 void updateSheepAnimation(t_sheep *sheep, int interval, int sprite_count);
+
+void upload_player_sprites(t_player **player, t_data *data, t_game_map **map);
 #endif

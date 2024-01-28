@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:16:52 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/28 13:49:10 by edouard          ###   ########.fr       */
+/*   Updated: 2024/01/28 20:28:51 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void ft_load_textures(t_data *data, t_game_map **map)
 		ft_free_textures(data, map);
 		exit(0);
 	}
-	(*map)->player = mlx_xpm_file_to_image(data->mlx_ptr, "./textures/wolf/right_side/right_side_1.xpm", &(*map)->usual_texture_width, &(*map)->usual_texture_height);
+	(*map)->player = mlx_xpm_file_to_image(data->mlx_ptr, "./textures/player/right_side/player_right_1.xpm", &(*map)->usual_texture_width, &(*map)->usual_texture_height);
 	if (!(*map)->wall_map)
 	{
 		ft_free_textures(data, map);
