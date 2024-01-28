@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:51:12 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/27 23:03:15 by edouard          ###   ########.fr       */
+/*   Updated: 2024/01/28 16:13:35 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void ft_load_second_layer(t_data *data, t_game_map **map)
 	}
 }
 
-void ft_load_three_layer(t_data *data, t_game_map **map)
+void ft_load_three_layer(t_data *data, t_game_map **map, t_sheep *sheep)
 {
 	int y;
 	int x;
@@ -68,7 +68,11 @@ void ft_load_three_layer(t_data *data, t_game_map **map)
 			if ((*map)->map_data[y][x] == 'P')
 				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, (*map)->player, x * 32, y * 32);
 			if ((*map)->map_data[y][x] == 'C')
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, (*map)->items, x * 32, y * 32);
+			{
+				sheep->y = y;
+				sheep->x = x;
+				drawSheep(data, sheep);
+			}
 			x++;
 		}
 		y++;

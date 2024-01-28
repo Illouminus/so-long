@@ -11,7 +11,7 @@ MLX_DIR = ./mlx/
 
 SRCS = so_long.c init_map.c checkers/check_map.c checkers/check_walls.c \
 		 checkers/check_game.c mlx_outils/mlx_outils.c mlx_outils/layer_outils.c \
-		 mlx_outils/image_outils.c gnl/get_next_line.c gnl/get_next_line_utils.c
+		 mlx_outils/image_outils.c mlx_outils/sheep_outils.c gnl/get_next_line.c gnl/get_next_line_utils.c
 
 OBJS = $(SRCS:.c=.o)
 MAKE_MLX = make -C $(MLX_DIR)
