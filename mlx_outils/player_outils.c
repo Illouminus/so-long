@@ -6,13 +6,13 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 20:58:13 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/28 22:05:15 by edouard          ###   ########.fr       */
+/*   Updated: 2024/01/29 10:13:36 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-static void init_player(t_player **player, t_data *data, t_game_map **map)
+void init_player(t_player **player, t_data *data, t_game_map **map)
 {
 	*player = malloc(sizeof(t_player));
 	if (!(*player))
@@ -23,7 +23,7 @@ static void init_player(t_player **player, t_data *data, t_game_map **map)
 	(*player)->sprites_left = malloc(sizeof(void *) * 5);
 	(*player)->sprites_right = malloc(sizeof(void *) * 5);
 
-	upload_player_sprites(&player, data, map);
+	upload_player_sprites(player, data, map);
 
 	(*player)->x = 0; // Начальная позиция X
 	(*player)->y = 0; // Начальная позиция Y

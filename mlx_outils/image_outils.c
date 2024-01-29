@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:16:52 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/28 20:28:51 by edouard          ###   ########.fr       */
+/*   Updated: 2024/01/29 10:11:32 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,13 @@ void ft_load_textures(t_data *data, t_game_map **map)
 		ft_free_textures(data, map);
 		exit(0);
 	}
-	(*map)->player = mlx_xpm_file_to_image(data->mlx_ptr, "./textures/player/right_side/player_right_1.xpm", &(*map)->usual_texture_width, &(*map)->usual_texture_height);
-	if (!(*map)->wall_map)
-	{
-		ft_free_textures(data, map);
-		exit(0);
-	}
 }
 
-void ft_put_textures(t_data *data, t_game_map **map, t_sheep *sheep)
+void ft_put_textures(t_data *data, t_game_map **map, t_sheep *sheep, t_player *player)
 {
 	ft_load_first_layer(data, map);
 	ft_load_second_layer(data, map);
-	ft_load_three_layer(data, map, sheep);
+	ft_load_three_layer(data, map, sheep, player);
 }
 
 void ft_free_textures(t_data *data, t_game_map **map)
@@ -53,8 +47,6 @@ void ft_free_textures(t_data *data, t_game_map **map)
 		mlx_destroy_image(data->mlx_ptr, (*map)->wall);
 	if ((*map)->floor)
 		mlx_destroy_image(data->mlx_ptr, (*map)->floor);
-	if ((*map)->player)
-		mlx_destroy_image(data->mlx_ptr, (*map)->player);
 	if ((*map)->exit)
 		mlx_destroy_image(data->mlx_ptr, (*map)->exit);
 	if ((*map)->sheep->sprites[0])

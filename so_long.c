@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 14:02:23 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/28 22:26:54 by edouard          ###   ########.fr       */
+/*   Updated: 2024/01/29 10:08:12 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int game_loop(t_game_state *game_state)
 	// Если прошло достаточно времени с последнего обновления
 	if ((current_time - last_update) > CLOCKS_PER_SEC / 25) // 60 раз в секунду
 	{
-		mlx_clear_window(game_state->data->mlx_ptr, game_state->data->win_ptr);		  // Очистка экрана
-		ft_put_textures(game_state->data, &game_state->game_map, game_state->sheep); // Перерисовка всех слоев
+		mlx_clear_window(game_state->data->mlx_ptr, game_state->data->win_ptr);									 // Очистка экрана
+		ft_put_textures(game_state->data, &game_state->game_map, game_state->sheep, game_state->player); // Перерисовка всех слоев
 
 		// Обновляем анимацию овцы
 		updateSheepAnimation(game_state->sheep, 2, 4); // Вставьте здесь нужные параметры
@@ -41,12 +41,10 @@ int on_destroy(t_data *data)
 	return (0);
 }
 
-int on_keypress(int keysym, t_data *data)
+int on_keypress(int keysym, t_game_state *data)
 {
-	t_game_state *game_state = data->game_state; // Предполагаем, что у вас есть доступ к game_state через data
-
-	handle_player_movement(keysym, game_state->player);
-
+	printf("Keypress #%d: %d\n", ++keypress_count, keysym);
+	handle_player_movement(keysym, data->player);
 	return (0);
 }
 
@@ -56,7 +54,7 @@ int main(int argc, char **argv)
 	t_game_map *game_map;
 	t_data data;
 	t_sheep *sheep;
-	t_player *player;
+	t_player *player = NULL;
 
 	t_game_state *game_state = malloc(sizeof(t_game_state));
 
@@ -90,8 +88,9 @@ int main(int argc, char **argv)
 	(*game_state).data = &data;
 	(*game_state).game_map = game_map;
 	(*game_state).sheep = sheep;
+	(*game_state).player = player;
 	// Register keypress hook
-	mlx_hook(data.win_ptr, 2, 1L << 0, &on_keypress, &data);
+	mlx_hook(data.win_ptr, 2, 1L << 0, &on_keypress, game_state);
 
 	// Register destroy hook
 	mlx_hook(data.win_ptr, 17, 1L << 4, &on_destroy, &data);

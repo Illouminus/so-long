@@ -68,6 +68,12 @@ typedef struct s_game_map
 	int usual_texture_height;
 } t_game_map;
 
+typedef struct s_render_v
+{
+	void *mlx_ptr;
+	void *win_ptr;
+} t_data;
+
 typedef struct s_game_state
 {
 	t_data *data;
@@ -75,13 +81,6 @@ typedef struct s_game_state
 	t_sheep *sheep;
 	t_player *player;
 } t_game_state;
-
-typedef struct s_render_v
-{
-	void *mlx_ptr;
-	void *win_ptr;
-	t_game_state *game_state;
-} t_data;
 
 // INITIALIZERS MAP ARRAY
 t_game_map **init_game_map(int fd, t_game_map **all_map, char *file_path);
@@ -98,22 +97,26 @@ void reset_game_checks();
 
 // HOOKS
 int on_destroy(t_data *data);
-int on_keypress(int keysym, t_data *data);
+int on_keypress(int keysym, t_game_state *data);
 
 // LOADERS AND DRAWERS MAP
 void load_map(t_data *data, t_game_map **map, t_sheep *sheep, t_player *player);
 
 void ft_load_textures(t_data *data, t_game_map **map);
-void ft_put_textures(t_data *data, t_game_map **map, t_sheep *sheep);
+void ft_put_textures(t_data *data, t_game_map **map, t_sheep *sheep, t_player *player);
 void ft_free_textures(t_data *data, t_game_map **map);
 
 void ft_load_first_layer(t_data *data, t_game_map **map);
 void ft_load_second_layer(t_data *data, t_game_map **map);
-void ft_load_three_layer(t_data *data, t_game_map **map, t_sheep *sheep);
+void ft_load_three_layer(t_data *data, t_game_map **map, t_sheep *sheep, t_player *player);
 
 void init_and_load_sheep(t_data *data, t_sheep **sheep, t_game_map **map);
 void drawSheep(t_data *data, t_sheep *sheep);
 void updateSheepAnimation(t_sheep *sheep, int interval, int sprite_count);
 
 void upload_player_sprites(t_player **player, t_data *data, t_game_map **map);
+void init_player(t_player **player, t_data *data, t_game_map **map);
+void drawPlayer(t_data *data, t_player *player);
+
+void handle_player_movement(int keysym, t_player *player);
 #endif
