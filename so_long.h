@@ -1,11 +1,6 @@
 #ifndef SO_LONG_H
 #define SO_LONG_H
 
-#define KEY_W 14
-#define KEY_A 1
-#define KEY_S 2
-#define KEY_D 3
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -30,7 +25,7 @@ typedef struct s_player
 	clock_t last_update;
 	int frame_count;
 	bool is_moving;
-	char direction; // 'U' - вверх, 'D' - вниз, 'L' - влево, 'R' - вправо
+	char direction;
 } t_player;
 
 typedef struct s_sheep
@@ -118,5 +113,6 @@ void upload_player_sprites(t_player **player, t_data *data, t_game_map **map);
 void init_player(t_player **player, t_data *data, t_game_map **map);
 void drawPlayer(t_data *data, t_player *player);
 
-void handle_player_movement(int keysym, t_player *player);
+void handle_player_movement(int keysym, t_player *player, t_game_map *map);
+void updatePlayerAnimation(t_player *player, int interval);
 #endif

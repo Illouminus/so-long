@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 14:02:23 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/29 10:27:21 by edouard          ###   ########.fr       */
+/*   Updated: 2024/01/29 22:31:08 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ int game_loop(t_game_state *game_state)
 
 		// Обновляем анимацию овцы
 		updateSheepAnimation(game_state->sheep, 2, 4); // Вставьте здесь нужные параметры
+		if (game_state->player->is_moving)
+			updatePlayerAnimation(game_state->player, 4);
+		else
+			game_state->player->current_sprite = 0;
 
 		last_update = current_time;
 	}
@@ -44,7 +48,7 @@ int on_destroy(t_data *data)
 int on_keypress(int keysym, t_game_state *data)
 {
 	printf("Keypress #%d: %d\n", ++keypress_count, keysym);
-	handle_player_movement(keysym, data->player);
+	handle_player_movement(keysym, data->player, data->game_map);
 	return (0);
 }
 
@@ -67,7 +71,7 @@ int main(int argc, char **argv)
 
 	sheep = malloc(sizeof(t_sheep));
 	game_map = NULL;
-	player = NULL;
+
 	data.mlx_ptr = mlx_init();
 	if (!data.mlx_ptr)
 		return (1);
@@ -78,7 +82,7 @@ int main(int argc, char **argv)
 	data.win_ptr = mlx_new_window(data.mlx_ptr, game_map->map_length * 31.3, game_map->map_height * 33, "So Long");
 	if (!data.win_ptr)
 		return (free(data.mlx_ptr), 1);
-
+	init_player(&player, &data, &game_map);
 	load_map(&data, &game_map, sheep, player);
 	if (sheep == NULL || game_map == NULL)
 	{

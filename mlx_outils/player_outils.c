@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 20:58:13 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/29 10:38:33 by edouard          ###   ########.fr       */
+/*   Updated: 2024/01/29 22:32:09 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,10 @@ void init_player(t_player **player, t_data *data, t_game_map **map)
 	upload_player_sprites(player, data, map);
 
 	(*player)->x = 0; // Начальная позиция X
-	printf("player->x = %d\n", (*player)->x);
 	(*player)->y = 0; // Начальная позиция Y
 	(*player)->current_sprite = 0;
 	(*player)->last_update = clock();
-	(*player)->direction = 'R'; // Направление по умолчанию
+	(*player)->direction = 'D'; // Направление по умолчанию
 	(*player)->is_moving = false;
 	(*player)->frame_count = 5; // Количество спрайтов для каждого направления
 }
@@ -40,39 +39,43 @@ void updatePlayerAnimation(t_player *player, int interval)
 {
 	clock_t current_time = clock();
 
-	if (!player->is_moving)
-		return;
-
-	if ((current_time - player->last_update) > (unsigned long)interval)
+	if (player->is_moving)
 	{
-		player->current_sprite = (player->current_sprite + 1) % player->frame_count;
-		player->last_update = current_time;
+		if ((current_time - player->last_update) > (unsigned long)interval)
+		{
+			player->current_sprite = (player->current_sprite + 1) % player->frame_count;
+			player->last_update = current_time;
+		}
+	}
+	else
+	{
+		player->current_sprite = 0; // Сбросить анимацию, если игрок не двигается
 	}
 }
 
 void drawPlayer(t_data *data, t_player *player)
 {
-	if (player->is_moving)
+
+	void *sprite_to_draw = NULL;
+
+	switch (player->direction)
 	{
-		void *sprite_to_draw = NULL;
-		switch (player->direction)
-		{
-		case 'W':
-			sprite_to_draw = player->sprites_up[player->current_sprite];
-			break;
-		case 'S':
-			sprite_to_draw = player->sprites_down[player->current_sprite];
-			break;
-		case 'A':
-			sprite_to_draw = player->sprites_left[player->current_sprite];
-			break;
-		case 'D':
-			sprite_to_draw = player->sprites_right[player->current_sprite];
-			break;
-		}
-		if (sprite_to_draw)
-		{
-			mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, sprite_to_draw, player->x * 32, player->y * 32);
-		}
+	case 'W':
+		sprite_to_draw = player->sprites_up[player->current_sprite];
+		break;
+	case 'S':
+		sprite_to_draw = player->sprites_down[player->current_sprite];
+		break;
+	case 'A':
+		sprite_to_draw = player->sprites_left[player->current_sprite];
+		break;
+	case 'D':
+		sprite_to_draw = player->sprites_right[player->current_sprite];
+		break;
+	}
+
+	if (sprite_to_draw)
+	{
+		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, sprite_to_draw, player->x * 32, player->y * 32);
 	}
 }
