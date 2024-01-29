@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 21:45:20 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/28 22:05:18 by edouard          ###   ########.fr       */
+/*   Updated: 2024/01/29 10:33:29 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void upload_player_sprites_right(t_player **player, t_data *data, t_game_
 	int i;
 	char *str;
 	i = 0;
-
 	while (i < 5)
 	{
 		str = ft_strjoin("./textures/player/right_side/player_right_", ft_itoa(i + 1));
@@ -102,4 +101,16 @@ void upload_player_sprites(t_player **player, t_data *data, t_game_map **map)
 	upload_player_sprites_left(player, data, map);
 	upload_player_sprites_up(player, data, map);
 	upload_player_sprites_down(player, data, map);
+
+	// Проверяем, все ли спрайты были успешно загружены
+	for (int i = 0; i < 5; i++)
+	{
+		if (!(*player)->sprites_right[i] || !(*player)->sprites_left[i] ||
+			 !(*player)->sprites_up[i] || !(*player)->sprites_down[i])
+		{
+			printf("Failed to load sprite for animation frame %d\n", i);
+			// Здесь вы можете решить, что делать дальше, возможно выход из программы:
+			exit(EXIT_FAILURE);
+		}
+	}
 }

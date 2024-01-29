@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 14:02:23 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/29 10:08:12 by edouard          ###   ########.fr       */
+/*   Updated: 2024/01/29 10:27:21 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int main(int argc, char **argv)
 	t_game_map *game_map;
 	t_data data;
 	t_sheep *sheep;
-	t_player *player = NULL;
+	t_player *player;
 
 	t_game_state *game_state = malloc(sizeof(t_game_state));
 
@@ -67,7 +67,7 @@ int main(int argc, char **argv)
 
 	sheep = malloc(sizeof(t_sheep));
 	game_map = NULL;
-
+	player = NULL;
 	data.mlx_ptr = mlx_init();
 	if (!data.mlx_ptr)
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 20:58:13 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/29 10:13:36 by edouard          ###   ########.fr       */
+/*   Updated: 2024/01/29 10:38:33 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void init_player(t_player **player, t_data *data, t_game_map **map)
 {
+	printf("Initializing player...\n");
 	*player = malloc(sizeof(t_player));
 	if (!(*player))
 		return; // Обработка ошибки выделения памяти
@@ -26,6 +27,7 @@ void init_player(t_player **player, t_data *data, t_game_map **map)
 	upload_player_sprites(player, data, map);
 
 	(*player)->x = 0; // Начальная позиция X
+	printf("player->x = %d\n", (*player)->x);
 	(*player)->y = 0; // Начальная позиция Y
 	(*player)->current_sprite = 0;
 	(*player)->last_update = clock();
