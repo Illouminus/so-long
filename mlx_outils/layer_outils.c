@@ -6,47 +6,47 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:51:12 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/30 21:22:23 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/11 20:02:44 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void ft_load_first_layer(t_data *data, t_game_map **map)
+void ft_load_first_layer(t_resources *res)
 {
 	int y;
 	int x;
 
 	y = 0;
-	while (y < (*map)->map_height)
+	while (y < res->game_map->map_height)
 	{
 		x = 0;
-		while (x < (*map)->map_length)
+		while (x < res->game_map->map_length)
 		{
-			mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, (*map)->floor, x * 32, y * 32);
+			mlx_put_image_to_window(res->data.mlx_ptr, res->data.win_ptr, res->game_map->floor, x * 32, y * 32);
 			x++;
 		}
 		y++;
 	}
 }
 
-void ft_load_second_layer(t_data *data, t_game_map **map)
+void ft_load_second_layer(t_resources *res)
 {
 	int y;
 	int x;
 
 	y = 0;
-	while (y < (*map)->map_height)
+	while (y < res->game_map->map_height)
 	{
 		x = 0;
-		while (x < (*map)->map_length)
+		while (x < res->game_map->map_length)
 		{
-			if ((*map)->map_data[y][x] == '1')
+			if (res->game_map->map_data[y][x] == '1')
 			{
-				if (y == 0 || y == (*map)->map_height - 1 || x == 0 || x == (*map)->map_length - 2)
-					mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, (*map)->wall, x * 32, y * 32);
+				if (y == 0 || y == res->game_map->map_height - 1 || x == 0 || x == res->game_map->map_length - 2)
+					mlx_put_image_to_window(res->data.mlx_ptr, res->data.win_ptr, res->game_map->wall, x * 32, y * 32);
 				else
-					mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, (*map)->wall_map, x * 32, y * 32);
+					mlx_put_image_to_window(res->data.mlx_ptr, res->data.win_ptr, res->game_map->wall_map, x * 32, y * 32);
 			}
 			x++;
 		}
@@ -54,28 +54,28 @@ void ft_load_second_layer(t_data *data, t_game_map **map)
 	}
 }
 
-void ft_load_three_layer(t_data *data, t_game_map **map, t_sheep *sheep, t_player *player)
+void ft_load_three_layer(t_resources *res)
 {
 	int y;
 	int x;
 
 	y = 0;
-	while (y < (*map)->map_height)
+	while (y < res->game_map->map_height)
 	{
 		x = 0;
-		while (x < (*map)->map_length)
+		while (x < res->game_map->map_length)
 		{
-			if ((*map)->map_data[y][x] == 'P')
+			if (res->game_map->map_data[y][x] == 'P')
 			{
-				player->y = y;
-				player->x = x;
-				drawPlayer(data, player);
+				res->player->y = y;
+				res->player->x = x;
+				drawPlayer(&res->data, res->player);
 			}
-			if ((*map)->map_data[y][x] == 'C')
+			if (res->game_map->map_data[y][x] == 'C')
 			{
-				sheep->y = y;
-				sheep->x = x;
-				drawSheep(data, sheep);
+				res->sheep->y = y;
+				res->sheep->x = x;
+				drawSheep(&res->data, res->sheep);
 			}
 			x++;
 		}

@@ -69,16 +69,16 @@ typedef struct s_render_v
 	void *win_ptr;
 } t_data;
 
-typedef struct s_game_state
+typedef struct s_resources
 {
-	t_data *data;
 	t_game_map *game_map;
+	t_data data;
 	t_sheep *sheep;
 	t_player *player;
-} t_game_state;
+} t_resources;
 
 // INITIALIZERS MAP ARRAY
-t_game_map **init_game_map(int fd, t_game_map **all_map, char *file_path);
+t_game_map **init_game_map(int fd, t_resources *resources, char *file_path);
 void free_game_map(t_game_map **all_map);
 
 // CHECKERS
@@ -91,31 +91,35 @@ void reset_game_checks();
 
 // HOOKS
 int on_destroy(t_data *data);
-int on_keypress(int keysym, t_game_state *data);
+int on_keypress(int keysym, t_resources *data);
 
 // LOADERS AND DRAWERS MAP
-void load_map(t_data *data, t_game_map **map, t_sheep *sheep, t_player *player);
+void load_map(t_resources *res);
 
-void ft_load_textures(t_data *data, t_game_map **map);
-void ft_put_textures(t_data *data, t_game_map **map, t_sheep *sheep, t_player *player);
-void ft_free_textures(t_data *data, t_game_map **map);
+void ft_load_textures(t_resources *res);
+void ft_put_textures(t_resources *res);
+void ft_free_textures(t_resources *res);
 
-void ft_load_first_layer(t_data *data, t_game_map **map);
-void ft_load_second_layer(t_data *data, t_game_map **map);
-void ft_load_three_layer(t_data *data, t_game_map **map, t_sheep *sheep, t_player *player);
+void ft_load_first_layer(t_resources *res);
+void ft_load_second_layer(t_resources *res);
+void ft_load_three_layer(t_resources *res);
 
-void init_and_load_sheep(t_data *data, t_sheep **sheep, t_game_map **map);
+void init_and_load_sheep(t_resources *res);
 void drawSheep(t_data *data, t_sheep *sheep);
 void updateSheepAnimation(t_sheep *sheep, int interval, int sprite_count);
 
-void upload_player_sprites(t_player **player, t_data *data, t_game_map **map);
-void init_player(t_player **player, t_data *data, t_game_map **map);
+void upload_player_sprites(t_resources *s_resources);
+void init_player(t_resources *resources);
 void drawPlayer(t_data *data, t_player *player);
 
 void handle_player_movement(int keysym, t_player *player, t_game_map *map);
 void updatePlayerAnimation(t_player *player, int interval);
 
-void read_and_process_lines(int fd, t_game_map **all_map, int num_of_lines);
+void read_and_process_lines(int fd, t_resources *resources, int num_of_lines);
 
-void free_error_malloc_player(t_player *player, t_game_map **map);
+void free_player(t_player *player);
+void free_resources(t_resources *res);
+
+void init_resources_and_mlx(t_resources *res);
+void setup_game_environment(t_resources *res, int argc, char **argv);
 #endif

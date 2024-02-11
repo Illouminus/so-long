@@ -6,50 +6,50 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 20:58:13 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/11 13:04:18 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/11 19:47:05 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-static void init_additional_options(t_player **player)
+static void init_additional_options(t_resources *resources)
 {
-	(*player)->x = 0;
-	(*player)->y = 0;
-	(*player)->current_sprite = 0;
-	(*player)->last_update = clock();
-	(*player)->direction = 'D';
-	(*player)->is_moving = false;
-	(*player)->frame_count = 5;
-	(*player)->sprites_up = NULL;
-	(*player)->sprites_down = NULL;
-	(*player)->sprites_left = NULL;
-	(*player)->sprites_right = NULL;
+	resources->player->x = 0;
+	resources->player->y = 0;
+	resources->player->current_sprite = 0;
+	resources->player->last_update = clock();
+	resources->player->direction = 'D';
+	resources->player->is_moving = false;
+	resources->player->frame_count = 5;
+	resources->player->sprites_up = NULL;
+	resources->player->sprites_down = NULL;
+	resources->player->sprites_left = NULL;
+	resources->player->sprites_right = NULL;
 }
 
-void init_player(t_player **player, t_data *data, t_game_map **map)
+void init_player(t_resources *resources)
 {
-	*player = malloc(sizeof(t_player));
-	if (!(*player))
+	resources->player = malloc(sizeof(t_player));
+	if (!resources->player)
 	{
-		free_game_map(map);
-		exit(1);
+		free_resources(resources);
+		print_errors("Malloc error in init player function\n");
 	}
-	init_additional_options(player);
-	(*player)->sprites_up = malloc(sizeof(void *) * 5);
-	if (!(*player)->sprites_up)
-		free_error_malloc_player(*player, map);
-	(*player)->sprites_down = malloc(sizeof(void *) * 5);
-	if (!(*player)->sprites_down)
-		free_error_malloc_player(*player, map);
-	(*player)->sprites_left = malloc(sizeof(void *) * 5);
-	if (!(*player)->sprites_left)
-		free_error_malloc_player(*player, map);
-	(*player)->sprites_right = malloc(sizeof(void *) * 5);
-	if (!(*player)->sprites_right)
-		free_error_malloc_player(*player, map);
+	init_additional_options(resources);
+	resources->player->sprites_up = malloc(sizeof(void *) * 5);
+	if (!resources->player->sprites_up)
+		free_resources(resources);
+	resources->player->sprites_down = malloc(sizeof(void *) * 5);
+	if (!resources->player->sprites_down)
+		free_resources(resources);
+	resources->player->sprites_left = malloc(sizeof(void *) * 5);
+	if (!resources->player->sprites_left)
+		free_resources(resources);
+	resources->player->sprites_right = malloc(sizeof(void *) * 5);
+	if (!resources->player->sprites_right)
+		free_resources(resources);
 
-	upload_player_sprites(player, data, map);
+	upload_player_sprites(resources);
 }
 
 void updatePlayerAnimation(t_player *player, int interval)

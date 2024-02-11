@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 15:42:39 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/11 12:05:07 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/11 19:50:27 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,28 @@ static int count_lines(int fd)
 	return num_of_lines;
 }
 
-t_game_map **init_game_map(int fd, t_game_map **all_map, char *file_path)
+t_game_map **init_game_map(int fd, t_resources *resources, char *file_path)
 {
 	int num_of_lines = count_lines(fd);
 	close(fd);
 	fd = open(file_path, O_RDONLY);
 
-	*all_map = malloc(sizeof(t_game_map));
-	if (!*all_map)
-		return NULL;
-
-	(*all_map)->map_data = malloc(sizeof(char *) * num_of_lines);
-	if (!(*all_map)->map_data)
+	resources->game_map = malloc(sizeof(t_game_map));
+	if (!resources->game_map)
 	{
-		free(*all_map);
-		return NULL;
+		free_resources(resources);
+		print_errors("Error: Memory allocation failed for game_map\n");
+	}
+
+	resources->game_map->map_data = malloc(sizeof(char *) * num_of_lines);
+	if (!resources->game_map->map_data)
+	{
+		free_resources(resources);
+		print_errors("Error: Memory allocation failed for map_data\n");
 	}
 
 	reset_game_checks();
-	read_and_process_lines(fd, all_map, num_of_lines);
+	read_and_process_lines(fd, resources, num_of_lines);
 
-	return all_map;
+	return &resources->game_map;
 }

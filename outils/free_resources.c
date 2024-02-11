@@ -1,20 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_outils.c                                       :+:      :+:    :+:   */
+/*   free_resources.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/25 18:57:41 by ebaillot          #+#    #+#             */
-/*   Updated: 2024/02/11 20:25:09 by edouard          ###   ########.fr       */
+/*   Created: 2024/02/11 17:13:23 by edouard           #+#    #+#             */
+/*   Updated: 2024/02/11 19:46:19 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void load_map(t_resources *res)
+void free_resources(t_resources *res)
 {
-	ft_load_textures(res);
-	init_and_load_sheep(res);
-	ft_put_textures(res);
+	if (!res)
+		return;
+
+	if (res->game_map)
+	{
+		free_game_map(&res->game_map);
+		res->game_map = NULL;
+	}
+
+	if (res->player)
+	{
+		free_player(res->player);
+		res->player = NULL;
+	}
+
+	if (res->sheep)
+	{
+		free(res->sheep);
+		res->sheep = NULL;
+	}
+
+	if (res->data.win_ptr)
+	{
+		mlx_destroy_window(res->data.mlx_ptr, res->data.win_ptr);
+		res->data.win_ptr = NULL;
+	}
 }

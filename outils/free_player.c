@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 12:40:45 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/11 13:01:53 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/11 17:23:36 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,13 @@ static void free_sprites(void **sprites, int count)
 	while (i < count)
 	{
 		if (sprites[i])
-		{
 			free(sprites[i]);
-		}
 		i++;
 	}
 }
 
-void free_error_malloc_player(t_player *player, t_game_map **map)
+void free_player(t_player *player)
 {
-	free_game_map(map);
-
 	if (player)
 	{
 		free_sprites((void **)player->sprites_up, 5);

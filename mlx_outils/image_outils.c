@@ -6,53 +6,55 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:16:52 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/11 13:29:43 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/11 20:03:24 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void ft_load_textures(t_data *data, t_game_map **map)
+void ft_load_textures(t_resources *res)
 {
-	(*map)->floor = mlx_xpm_file_to_image(data->mlx_ptr, "./textures/floor.xpm", &(*map)->usual_texture_width, &(*map)->usual_texture_height);
-	if (!(*map)->floor)
+	res->game_map->floor = mlx_xpm_file_to_image(res->data.mlx_ptr, "./textures/floor.xpm", &res->game_map->usual_texture_width, &res->game_map->usual_texture_height);
+	if (!res->game_map->floor)
 	{
-		ft_free_textures(data, map);
-		exit(0);
+		ft_free_textures(res);
+		print_errors("Error\nFailed to load floor texture");
 	}
-	(*map)->wall = mlx_xpm_file_to_image(data->mlx_ptr, "./textures/wall.xpm", &(*map)->usual_texture_width, &(*map)->usual_texture_height);
-	if (!(*map)->wall)
+	res->game_map->wall = mlx_xpm_file_to_image(res->data.mlx_ptr, "./textures/wall.xpm", &res->game_map->usual_texture_width, &res->game_map->usual_texture_height);
+	if (!res->game_map->wall)
 	{
-		ft_free_textures(data, map);
-		exit(0);
+		ft_free_textures(res);
+		print_errors("Error\nFailed to load wall texture");
 	}
-	(*map)->wall_map = mlx_xpm_file_to_image(data->mlx_ptr, "./textures/wall_map.xpm", &(*map)->usual_texture_width, &(*map)->usual_texture_height);
-	if (!(*map)->wall_map)
+	res->game_map->wall_map = mlx_xpm_file_to_image(res->data.mlx_ptr, "./textures/wall_map.xpm", &res->game_map->usual_texture_width, &res->game_map->usual_texture_height);
+	if (!res->game_map->wall_map)
 	{
-		ft_free_textures(data, map);
-		exit(0);
+		ft_free_textures(res);
+		print_errors("Error\nFailed to load wall_map texture");
 	}
+	// Добавьте здесь загрузку других текстур по аналогии
 }
 
-void ft_put_textures(t_data *data, t_game_map **map, t_sheep *sheep, t_player *player)
+void ft_put_textures(t_resources *res)
 {
-	ft_load_first_layer(data, map);
-	ft_load_second_layer(data, map);
-	ft_load_three_layer(data, map, sheep, player);
+	ft_load_first_layer(res);
+	ft_load_second_layer(res);
+	ft_load_three_layer(res);
 }
 
-void ft_free_textures(t_data *data, t_game_map **map)
+void ft_free_textures(t_resources *res)
 {
-	if ((*map)->wall)
-		mlx_destroy_image(data->mlx_ptr, (*map)->wall);
-	if ((*map)->floor)
-		mlx_destroy_image(data->mlx_ptr, (*map)->floor);
-	if ((*map)->exit)
-		mlx_destroy_image(data->mlx_ptr, (*map)->exit);
-	if ((*map)->sheep->sprites[0])
-		mlx_destroy_image(data->mlx_ptr, (*map)->sheep->sprites[0]);
-	if ((*map)->enemy)
-		mlx_destroy_image(data->mlx_ptr, (*map)->enemy);
-	if ((*map)->end_img)
-		mlx_destroy_image(data->mlx_ptr, (*map)->end_img);
+	if (res->game_map->wall)
+		mlx_destroy_image(res->data.mlx_ptr, res->game_map->wall);
+	if (res->game_map->floor)
+		mlx_destroy_image(res->data.mlx_ptr, res->game_map->floor);
+	if (res->game_map->exit)
+		mlx_destroy_image(res->data.mlx_ptr, res->game_map->exit);
+	if (res->game_map->sheep && res->game_map->sheep->sprites[0])
+		mlx_destroy_image(res->data.mlx_ptr, res->game_map->sheep->sprites[0]);
+	if (res->game_map->enemy)
+		mlx_destroy_image(res->data.mlx_ptr, res->game_map->enemy);
+	if (res->game_map->end_img)
+		mlx_destroy_image(res->data.mlx_ptr, res->game_map->end_img);
+	free_resources(res);
 }

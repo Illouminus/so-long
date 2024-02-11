@@ -13,7 +13,7 @@ SRCS = so_long.c init_map.c checkers/check_map.c checkers/check_walls.c \
 		 checkers/check_game.c mlx_outils/mlx_outils.c mlx_outils/layer_outils.c \
 		 mlx_outils/image_outils.c mlx_outils/sheep_outils.c mlx_outils/player_outils.c \
 		 mlx_outils/upload_sprites.c  mlx_outils/keys_outils.c \
-		 outils/map_outils.c outils/free_player.c  \
+		 outils/map_outils.c outils/free_player.c outils/free_resources.c outils/init_main.c \
 		 gnl/get_next_line.c gnl/get_next_line_utils.c
 
 OBJS = $(SRCS:.c=.o)
