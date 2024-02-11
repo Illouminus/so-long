@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 14:02:23 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/29 22:31:08 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/11 13:18:16 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ int game_loop(t_game_state *game_state)
 {
 	static clock_t last_update = 0;
 	clock_t current_time = clock();
-	// Если прошло достаточно времени с последнего обновления
-	if ((current_time - last_update) > CLOCKS_PER_SEC / 25) // 60 раз в секунду
-	{
-		mlx_clear_window(game_state->data->mlx_ptr, game_state->data->win_ptr);									 // Очистка экрана
-		ft_put_textures(game_state->data, &game_state->game_map, game_state->sheep, game_state->player); // Перерисовка всех слоев
 
-		// Обновляем анимацию овцы
-		updateSheepAnimation(game_state->sheep, 2, 4); // Вставьте здесь нужные параметры
+	if ((current_time - last_update) > CLOCKS_PER_SEC / 25) // La frecuencia de actualización es de 25 FPS
+	{
+		mlx_clear_window(game_state->data->mlx_ptr, game_state->data->win_ptr);									 // Netoyage de la fenêtre
+		ft_put_textures(game_state->data, &game_state->game_map, game_state->sheep, game_state->player); // Re-affichage des textures
+
+		// Mise à jour des animations
+		updateSheepAnimation(game_state->sheep, 2, 4);
 		if (game_state->player->is_moving)
 			updatePlayerAnimation(game_state->player, 4);
 		else
@@ -59,31 +59,57 @@ int main(int argc, char **argv)
 	t_data data;
 	t_sheep *sheep;
 	t_player *player;
+	t_game_state *game_state;
 
-	t_game_state *game_state = malloc(sizeof(t_game_state));
-
+	game_state = malloc(sizeof(t_game_state));
 	if (!game_state)
-	{
-		// Обработка ошибки выделения памяти
-		fprintf(stderr, "Error: Failed to allocate memory for game state\n");
-		return (free(data.mlx_ptr), 1);
-	}
+		print_errors("Error: Memory allocation failed for game_state\n");
 
 	sheep = malloc(sizeof(t_sheep));
+	if (!sheep)
+	{
+		free(game_state);
+		print_errors("Error: Memory allocation failed for sheep\n");
+	}
+
 	game_map = NULL;
 
+	// Verifier comment libere la memoire de mlx_ptr
 	data.mlx_ptr = mlx_init();
+
 	if (!data.mlx_ptr)
-		return (1);
+	{
+		free(game_state);
+		free(sheep);
+		// voir si il faut mlx_destroy_window
+		print_errors("Error: MLX initialization failed\n");
+	}
+
 	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+	{
+		free(game_state);
+		free(sheep);
+		print_errors("Error: File not found\n");
+	}
+
 	if (check_params(argc, argv, fd))
 		init_game_map(fd, &game_map, argv[1]);
 
 	data.win_ptr = mlx_new_window(data.mlx_ptr, game_map->map_length * 31.3, game_map->map_height * 33, "So Long");
+
 	if (!data.win_ptr)
-		return (free(data.mlx_ptr), 1);
+	{
+		free_game_map(&game_map);
+		free(data.mlx_ptr);
+		mlx_destroy_window(data.mlx_ptr, data.win_ptr);
+		exit(1);
+	}
+
 	init_player(&player, &data, &game_map);
+
 	load_map(&data, &game_map, sheep, player);
+
 	if (sheep == NULL || game_map == NULL)
 	{
 		free(game_state);

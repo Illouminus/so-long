@@ -6,33 +6,50 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 20:58:13 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/29 22:32:09 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/11 13:04:18 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void init_player(t_player **player, t_data *data, t_game_map **map)
+static void init_additional_options(t_player **player)
 {
-	printf("Initializing player...\n");
-	*player = malloc(sizeof(t_player));
-	if (!(*player))
-		return; // Обработка ошибки выделения памяти
-
-	(*player)->sprites_up = malloc(sizeof(void *) * 5);
-	(*player)->sprites_down = malloc(sizeof(void *) * 5);
-	(*player)->sprites_left = malloc(sizeof(void *) * 5);
-	(*player)->sprites_right = malloc(sizeof(void *) * 5);
-
-	upload_player_sprites(player, data, map);
-
-	(*player)->x = 0; // Начальная позиция X
-	(*player)->y = 0; // Начальная позиция Y
+	(*player)->x = 0;
+	(*player)->y = 0;
 	(*player)->current_sprite = 0;
 	(*player)->last_update = clock();
-	(*player)->direction = 'D'; // Направление по умолчанию
+	(*player)->direction = 'D';
 	(*player)->is_moving = false;
-	(*player)->frame_count = 5; // Количество спрайтов для каждого направления
+	(*player)->frame_count = 5;
+	(*player)->sprites_up = NULL;
+	(*player)->sprites_down = NULL;
+	(*player)->sprites_left = NULL;
+	(*player)->sprites_right = NULL;
+}
+
+void init_player(t_player **player, t_data *data, t_game_map **map)
+{
+	*player = malloc(sizeof(t_player));
+	if (!(*player))
+	{
+		free_game_map(map);
+		exit(1);
+	}
+	init_additional_options(player);
+	(*player)->sprites_up = malloc(sizeof(void *) * 5);
+	if (!(*player)->sprites_up)
+		free_error_malloc_player(*player, map);
+	(*player)->sprites_down = malloc(sizeof(void *) * 5);
+	if (!(*player)->sprites_down)
+		free_error_malloc_player(*player, map);
+	(*player)->sprites_left = malloc(sizeof(void *) * 5);
+	if (!(*player)->sprites_left)
+		free_error_malloc_player(*player, map);
+	(*player)->sprites_right = malloc(sizeof(void *) * 5);
+	if (!(*player)->sprites_right)
+		free_error_malloc_player(*player, map);
+
+	upload_player_sprites(player, data, map);
 }
 
 void updatePlayerAnimation(t_player *player, int interval)
@@ -48,9 +65,7 @@ void updatePlayerAnimation(t_player *player, int interval)
 		}
 	}
 	else
-	{
-		player->current_sprite = 0; // Сбросить анимацию, если игрок не двигается
-	}
+		player->current_sprite = 0;
 }
 
 void drawPlayer(t_data *data, t_player *player)

@@ -79,8 +79,7 @@ typedef struct s_game_state
 
 // INITIALIZERS MAP ARRAY
 t_game_map **init_game_map(int fd, t_game_map **all_map, char *file_path);
-void init_array(char *line, t_game_map **map, int current_line);
-void free_game_map(t_game_map **all_map, int num_lines);
+void free_game_map(t_game_map **all_map);
 
 // CHECKERS
 int check_params(int argc, char **argv, int fd);
@@ -115,4 +114,8 @@ void drawPlayer(t_data *data, t_player *player);
 
 void handle_player_movement(int keysym, t_player *player, t_game_map *map);
 void updatePlayerAnimation(t_player *player, int interval);
+
+void read_and_process_lines(int fd, t_game_map **all_map, int num_of_lines);
+
+void free_error_malloc_player(t_player *player, t_game_map **map);
 #endif
