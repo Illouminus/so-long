@@ -39,6 +39,15 @@ typedef struct s_sheep
 	bool is_collected;
 } t_sheep;
 
+typedef struct s_enemy
+{
+	int x;
+	int y;
+	void **sprites;
+	int current_sprite;
+	clock_t last_update;
+} t_enemy;
+
 typedef struct s_game_map
 {
 	int map_height;

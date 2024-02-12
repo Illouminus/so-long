@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 11:34:48 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/11 20:25:07 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/11 21:04:32 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,13 @@ static void init_sheep(t_resources *res)
 	res->sheep->sprites = malloc(sizeof(void *) * 4);
 	if (!res->sheep->sprites)
 	{
+		free_resources(res);
 		print_errors("Failed to allocate memory for sheep sprites\n");
-		free_resources(res); // Освобождаем все ресурсы перед выходом
-		exit(1);
 	}
 	i = 0;
 	while (i < 4)
 	{
-		res->sheep->sprites[i] = NULL; // Инициализация указателей как NULL
+		res->sheep->sprites[i] = NULL;
 		i++;
 	}
 	res->sheep->current_sprite = 0;
@@ -60,7 +59,7 @@ void init_and_load_sheep(t_resources *res)
 	char *temp;
 
 	i = 0;
-	init_sheep(res); // Теперь init_sheep обрабатывает весь res для управления ошибками
+	init_sheep(res);
 
 	while (i < 4)
 	{

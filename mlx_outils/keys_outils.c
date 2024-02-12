@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 22:12:00 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/29 22:31:42 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/12 14:35:51 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void handle_player_movement(int keysym, t_player *player, t_game_map *map)
 		player->x = newX;
 		player->y = newY;
 		player->is_moving = true;
+
 		update_map_for_player(map, player);
 	}
 	else
