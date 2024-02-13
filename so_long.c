@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 14:02:23 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/12 14:36:32 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/13 20:53:09 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,30 @@ int game_loop(t_resources *resources)
 	static clock_t last_update = 0;
 	clock_t current_time = clock();
 
-	if ((current_time - last_update) > CLOCKS_PER_SEC / 25) // La frecuencia de actualización es de 25 FPS
+	if ((current_time - last_update) > CLOCKS_PER_SEC / 20)
 	{
-		mlx_clear_window(resources->data.mlx_ptr, resources->data.win_ptr); // Netoyage de la fenêtre
-		ft_put_textures(resources);													  // Re-affichage des textures
+		mlx_clear_window(resources->data.mlx_ptr, resources->data.win_ptr);
+		ft_put_textures(resources);
 
-		// Mise à jour des animations
 		updateSheepAnimation(resources->sheep, 2, 4);
 		if (resources->player->is_moving)
 			updatePlayerAnimation(resources->player, 4);
 		else
 			resources->player->current_sprite = 0;
-
+		if (resources->enemy_count > 0)
+			updateEnemyPatrol(resources);
+		updateEnemyAnimation(resources->enemy, 4);
+		display_steps(resources);
 		last_update = current_time;
 	}
 
 	return (0);
 }
 
-int on_destroy(t_data *data)
+int on_destroy(t_resources *res)
 {
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	free(data->mlx_ptr);
+	mlx_destroy_window(res->data.mlx_ptr, res->data.win_ptr);
+	free_resources(res);
 	exit(0);
 	return (0);
 }
@@ -48,7 +50,7 @@ int on_destroy(t_data *data)
 int on_keypress(int keysym, t_resources *data)
 {
 	printf("Keypress #%d: %d\n", ++keypress_count, keysym);
-	handle_player_movement(keysym, data->player, data->game_map);
+	handle_player_movement(keysym, data);
 	return (0);
 }
 
@@ -60,8 +62,8 @@ int main(int argc, char **argv)
 	init_resources_and_mlx(&res);
 	setup_game_environment(&res, argc, argv);
 
-	mlx_hook(res.data.win_ptr, 2, 1L << 0, &on_keypress, &res);
-	mlx_hook(res.data.win_ptr, 17, 1L << 4, &on_destroy, &res.data);
+	mlx_hook(res.data.win_ptr, 2, 0, &on_keypress, &res);
+	mlx_hook(res.data.win_ptr, 17, 0, &on_destroy, &res);
 	mlx_loop_hook(res.data.mlx_ptr, &game_loop, &res);
 	mlx_loop(res.data.mlx_ptr);
 

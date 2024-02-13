@@ -1,20 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_outils.c                                       :+:      :+:    :+:   */
+/*   sheep_count.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/25 18:57:41 by ebaillot          #+#    #+#             */
-/*   Updated: 2024/02/13 08:06:27 by edouard          ###   ########.fr       */
+/*   Created: 2024/02/13 14:30:12 by edouard           #+#    #+#             */
+/*   Updated: 2024/02/13 14:32:36 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void load_map(t_resources *res)
+void sheep_count(t_resources *res)
 {
-	ft_load_textures(res);
-	init_and_load_sheep(res);
-	ft_put_textures(res);
+	int y;
+	int x;
+
+	res->sheep_count = 0;
+	y = 0;
+	while (y < res->game_map->map_height)
+	{
+		x = 0;
+		while (x < res->game_map->map_length)
+		{
+			if (res->game_map->map_data[y][x] == 'C')
+				res->sheep_count++;
+			x++;
+		}
+		y++;
+	}
 }

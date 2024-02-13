@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:29:30 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/12 15:09:44 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/13 11:00:03 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void init_resources_and_mlx(t_resources *res)
 		free_resources(res);
 		print_errors("Error: Memory allocation failed for sheep\n");
 	}
-
 	res->data.mlx_ptr = mlx_init();
 	if (!res->data.mlx_ptr)
 	{
@@ -55,5 +54,6 @@ void setup_game_environment(t_resources *res, int argc, char **argv)
 		print_errors("Error: Failed to create MLX window\n");
 	}
 	init_player(res);
+	init_enemy(res);
 	load_map(res);
 }

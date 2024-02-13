@@ -6,76 +6,74 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 22:12:00 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/12 14:35:51 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/13 16:07:43 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void update_map_for_player(t_game_map *map, t_player *player)
+static void update_map_for_player(t_game_map *map, t_player *player)
 {
-	int y = 0;
-	int x;
+	if (map->map_data[player->prev_y][player->prev_x] == 'P')
+		map->map_data[player->prev_y][player->prev_x] = '0';
 
-	// Ищем старое положение игрока и заменяем его на '0'
-	while (y < map->map_height)
-	{
-		x = 0;
-		while (x < map->map_length)
-		{
-			if (map->map_data[y][x] == 'P')
-			{
-				map->map_data[y][x] = '0'; // предполагаем, что '0' - это пустое пространство
-			}
-			x++;
-		}
-		y++;
-	}
-
-	// Устанавливаем новое положение игрока
 	map->map_data[player->y][player->x] = 'P';
+
+	player->prev_x = player->x;
+	player->prev_y = player->y;
 }
 
-void handle_player_movement(int keysym, t_player *player, t_game_map *map)
+void handle_player_movement(int keysym, t_resources *res)
 {
-	int newX = player->x;
-	int newY = player->y;
+	int newX = res->player->x;
+	int newY = res->player->y;
 
 	switch (keysym)
 	{
 	case 6: // W
 		newY -= 1;
-		player->direction = 'W';
+		res->player->direction = 'W';
 		break;
 	case 12: // A
 		newX -= 1;
-		player->direction = 'A';
+		res->player->direction = 'A';
 		break;
 	case 1: // S
 		newY += 1;
-		player->direction = 'S';
+		res->player->direction = 'S';
 		break;
 	case 2: // D
 		newX += 1;
-		player->direction = 'D';
+		res->player->direction = 'D';
 		break;
 	default:
-		printf("Invalid Key: %d\n", keysym);
-		player->is_moving = false;
+		res->player->is_moving = false;
 		return;
 	}
 
-	if (newX >= 0 && newX < map->map_length && newY >= 0 && newY < map->map_height && map->map_data[newY][newX] != '1')
+	if (newX >= 0 && newX < res->game_map->map_length && newY >= 0 && newY < res->game_map->map_height)
 	{
-		player->x = newX;
-		player->y = newY;
-		player->is_moving = true;
-
-		update_map_for_player(map, player);
-	}
-	else
-	{
-		printf("Blocked or Invalid Move\n");
-		player->is_moving = false;
+		if (res->game_map->map_data[newY][newX] == 'C')
+		{
+			res->sheep_count--;
+			printf("Sheep count: %d\n", res->sheep_count);
+			// Можете добавить здесь дополнительную логику, например, проверку на завершение уровня
+		}
+		if (res->game_map->map_data[newY][newX] == 'E')
+		{
+			end_game(res, 1);
+		}
+		if (res->game_map->map_data[newY][newX] != '1')
+		{
+			res->player->x = newX;
+			res->player->y = newY;
+			res->player->is_moving = true;
+			res->player->steps++;
+			update_map_for_player(res->game_map, res->player);
+		}
+		else
+		{
+			res->player->is_moving = false;
+		}
 	}
 }

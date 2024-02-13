@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_outils.c                                       :+:      :+:    :+:   */
+/*   sheep_draw.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/25 18:57:41 by ebaillot          #+#    #+#             */
-/*   Updated: 2024/02/13 08:06:27 by edouard          ###   ########.fr       */
+/*   Created: 2024/02/13 09:05:56 by edouard           #+#    #+#             */
+/*   Updated: 2024/02/13 14:23:46 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void load_map(t_resources *res)
+void sheep_draw_layer(t_resources *res, int y, int x)
 {
-	ft_load_textures(res);
-	init_and_load_sheep(res);
-	ft_put_textures(res);
+	res->sheep->y = y;
+	res->sheep->x = x;
+	drawSheep(&res->data, res->sheep);
 }

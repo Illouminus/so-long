@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 12:40:45 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/11 20:55:03 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/13 19:12:40 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,25 @@ void free_player(t_player *player)
 	}
 
 	exit(1);
+}
+
+void display_steps(t_resources *resources)
+{
+	char *steps_str = ft_itoa(resources->player->steps);
+	if (!steps_str)
+		return;
+
+	char *prefix = "Steps: ";
+	char *final = ft_strjoin(prefix, steps_str);
+	free(steps_str);
+
+	if (!final)
+		return;
+
+	int text_x = 40;
+	int text_y = 40;
+	int color = 0xFF0000;
+
+	mlx_string_put(resources->data.mlx_ptr, resources->data.win_ptr, text_x, text_y, color, final);
+	free(final);
 }

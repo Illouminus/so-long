@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:51:12 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/11 20:02:44 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/13 17:25:59 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ void ft_load_second_layer(t_resources *res)
 				else
 					mlx_put_image_to_window(res->data.mlx_ptr, res->data.win_ptr, res->game_map->wall_map, x * 32, y * 32);
 			}
+			if (res->game_map->map_data[y][x] == 'E' && res->sheep_count == 0)
+				mlx_put_image_to_window(res->data.mlx_ptr, res->data.win_ptr, res->game_map->exit, x * 32, y * 32);
+
 			x++;
 		}
 		y++;
@@ -58,27 +61,26 @@ void ft_load_three_layer(t_resources *res)
 {
 	int y;
 	int x;
+	int i;
 
 	y = 0;
+	i = 0;
 	while (y < res->game_map->map_height)
 	{
 		x = 0;
 		while (x < res->game_map->map_length)
 		{
 			if (res->game_map->map_data[y][x] == 'P')
-			{
-				res->player->y = y;
-				res->player->x = x;
-				drawPlayer(&res->data, res->player);
-			}
+				player_draw_layer(res, y, x);
 			if (res->game_map->map_data[y][x] == 'C')
-			{
-				res->sheep->y = y;
-				res->sheep->x = x;
-				drawSheep(&res->data, res->sheep);
-			}
+				sheep_draw_layer(res, y, x);
 			x++;
 		}
 		y++;
+	}
+	while (i < res->enemy_count)
+	{
+		drawEnemy(res, &res->enemy[i]);
+		i++;
 	}
 }

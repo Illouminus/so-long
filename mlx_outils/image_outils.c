@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:16:52 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/11 20:03:24 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/13 14:51:04 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ void ft_load_textures(t_resources *res)
 	}
 	res->game_map->wall_map = mlx_xpm_file_to_image(res->data.mlx_ptr, "./textures/wall_map.xpm", &res->game_map->usual_texture_width, &res->game_map->usual_texture_height);
 	if (!res->game_map->wall_map)
+	{
+		ft_free_textures(res);
+		print_errors("Error\nFailed to load wall_map texture");
+	}
+
+	res->game_map->exit = mlx_xpm_file_to_image(res->data.mlx_ptr, "./textures/exit.xpm", &res->game_map->usual_texture_width, &res->game_map->usual_texture_height);
+	if (!res->game_map->exit)
 	{
 		ft_free_textures(res);
 		print_errors("Error\nFailed to load wall_map texture");

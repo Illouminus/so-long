@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 20:58:13 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/11 21:25:43 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/13 12:51:34 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ static void init_additional_options(t_resources *resources)
 {
 	resources->player->x = 0;
 	resources->player->y = 0;
+	resources->player->prev_x = 0;
+	resources->player->prev_y = 0;
 	resources->player->current_sprite = 0;
+	resources->player->steps = 0;
 	resources->player->last_update = clock();
 	resources->player->direction = 'D';
 	resources->player->is_moving = false;
@@ -68,9 +71,9 @@ void updatePlayerAnimation(t_player *player, int interval)
 		player->current_sprite = 0;
 }
 
-void drawPlayer(t_data *data, t_player *player)
+void drawPlayer(t_resources *resources)
 {
-
+	t_player *player = resources->player;
 	void *sprite_to_draw = NULL;
 
 	switch (player->direction)
@@ -91,6 +94,6 @@ void drawPlayer(t_data *data, t_player *player)
 
 	if (sprite_to_draw)
 	{
-		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, sprite_to_draw, player->x * 32, player->y * 32);
+		mlx_put_image_to_window(resources->data.mlx_ptr, resources->data.win_ptr, sprite_to_draw, player->x * 32, player->y * 32);
 	}
 }

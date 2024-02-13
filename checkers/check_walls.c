@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:30:11 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/28 11:06:31 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/12 16:31:37 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int check_mediums_lines(char *line)
 		return (0);
 	while (i < length - 1)
 	{
-		if (line[i] != 'C' && line[i] != 'P' && line[i] != 'E' && line[i] != '0' && line[i] != '1')
+		if (line[i] != 'C' && line[i] != 'P' && line[i] != 'E' && line[i] != '0' && line[i] != '1' && line[i] != 'N')
 			return (0);
 		i++;
 	}

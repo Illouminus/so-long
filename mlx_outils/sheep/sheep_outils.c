@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 11:34:48 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/11 21:04:32 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/13 14:49:35 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void init_and_load_sheep(t_resources *res)
 
 	i = 0;
 	init_sheep(res);
-
+	sheep_count(res);
 	while (i < 4)
 	{
 		temp = ft_strjoin("./textures/sheep/sheep_", ft_itoa(i + 1));
