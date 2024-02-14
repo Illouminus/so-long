@@ -9,12 +9,12 @@ PRINTF = ./printf/libftprintf.a
 MLX_DIR = ./mlx/
 
 
-SRCS = so_long.c init_map.c checkers/check_map.c checkers/check_walls.c \
+SRCS = so_long.c init_map.c checkers/check_map.c checkers/check_walls.c checkers/check_route.c\
 		 checkers/check_game.c mlx_outils/mlx_outils.c mlx_outils/layer/layer_outils.c \
 		 mlx_outils/layer/player_draw.c mlx_outils/layer/enemy_draw.c mlx_outils/layer/sheep_draw.c  \
 		 mlx_outils/image_outils.c  mlx_outils/player_outils.c \
 		 mlx_outils/upload_sprites.c  mlx_outils/keys_outils.c \
-		 outils/map_outils.c outils/free_player.c outils/free_resources.c outils/init_main.c \
+		 outils/map_outils.c outils/free_player.c outils/free_resources.c outils/init_main.c outils/map_count.c \
 		 mlx_outils/sheep/sheep_count.c mlx_outils/sheep/sheep_outils.c \
 		 mlx_outils/enemy/init_enemy_pos.c mlx_outils/enemy/enemy_outils.c mlx_outils/enemy/enemy_update.c\
 		 gnl/get_next_line.c gnl/get_next_line_utils.c

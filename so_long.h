@@ -110,6 +110,7 @@ void init_resources_and_mlx(t_resources *res);
 void setup_game_environment(t_resources *res, int argc, char **argv);
 void display_steps(t_resources *resources);
 void end_game(t_resources *res, int win);
+void set_player_position(t_resources *res);
 
 // CHECKERS
 int check_params(int argc, char **argv, int fd);
@@ -118,6 +119,7 @@ int check_walls(char *line, int line_type);
 int check_rectangular(char *line);
 int check_game(char *line);
 void reset_game_checks();
+bool check_path_exists(char **map, int width, int height, int startX, int startY, int itemsCount);
 
 // HOOKS
 int on_destroy(t_resources *res);
@@ -156,7 +158,6 @@ void init_enemy(t_resources *resources);
 void drawEnemy(t_resources *resources, t_enemy *enemy);
 void updateEnemyPatrol(t_resources *resources);
 void updateEnemyAnimation(t_enemy *enemy, int interval);
-void enemy_count(t_resources *res);
 void upload_enemy_sprite(t_resources *resources, t_enemy *enemy, int index);
 void free_enemys_sprites(t_resources *res);
 void init_enemy_positions(t_resources *resources, t_pos *available_positions, int available_positions_count);

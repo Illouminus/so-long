@@ -6,31 +6,11 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 09:07:11 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/13 19:28:18 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/13 22:29:09 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
-
-void enemy_count(t_resources *res)
-{
-	int y;
-	int x;
-
-	res->enemy_count = 0;
-	y = 0;
-	while (y < res->game_map->map_height)
-	{
-		x = 0;
-		while (x < res->game_map->map_length)
-		{
-			if (res->game_map->map_data[y][x] == 'N')
-				res->enemy_count++;
-			x++;
-		}
-		y++;
-	}
-}
 
 void init_enemy_positions(t_resources *resources, t_pos *available_positions, int available_positions_count)
 {

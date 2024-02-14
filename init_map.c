@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 15:42:39 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/12 14:27:55 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/14 10:17:14 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ t_game_map **init_game_map(int fd, t_resources *resources, char *file_path)
 
 	reset_game_checks();
 	read_and_process_lines(fd, resources, num_of_lines);
-
+	sheep_count(resources);
+	set_player_position(resources);
+	bool isCheck = check_path_exists(resources->game_map->map_data, resources->game_map->map_length,
+												resources->game_map->map_height, resources->game_map->player_position_x,
+												resources->game_map->player_position_y, resources->sheep_count);
+	printf("isCheck: %d\n", isCheck);
 	return &resources->game_map;
 }

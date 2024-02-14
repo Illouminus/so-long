@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:29:30 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/13 11:00:03 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/13 22:40:09 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void setup_game_environment(t_resources *res, int argc, char **argv)
 		free_resources(res);
 		print_errors("Error: Parameters check failed\n");
 	}
-
 	init_game_map(fd, res, argv[1]);
 	close(fd);
 
