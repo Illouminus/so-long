@@ -6,17 +6,26 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 09:26:53 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/13 20:50:28 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/19 21:49:36 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
+static int check_file_extension(const char *filename, const char *extension)
+{
+	const char *dot;
+	dot = ft_strrchr(filename, '.');
+	if (!dot || dot == filename)
+		return 0;
+	return strcmp(dot, extension) == 0;
+}
+
 int check_params(int argc, char **argv, int fd)
 {
 	if (argc != 2)
 		print_errors("Wrong number of arguments");
-	if (!ft_strncmp(argv[1], ".ber", 4))
+	if (!check_file_extension(argv[1], ".ber"))
 		print_errors("Wrong file extension");
 	if (fd == -1)
 		print_errors("File not found");

@@ -6,13 +6,13 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 12:40:45 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/13 19:12:40 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/19 21:16:59 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-static void free_sprites(void **sprites, int count)
+static void free_sprites(void *mlx_ptr, void **sprites, int count)
 {
 	int i;
 
@@ -20,29 +20,26 @@ static void free_sprites(void **sprites, int count)
 	while (i < count)
 	{
 		if (sprites[i])
-			free(sprites[i]);
+		{
+			mlx_destroy_image(mlx_ptr, sprites[i]);
+			sprites[i] = NULL;
+		}
 		i++;
 	}
 }
 
-void free_player(t_player *player)
+void free_player(t_resources *res)
 {
-	if (player)
+	if (res->player)
 	{
-		free_sprites((void **)player->sprites_up, 5);
-		free_sprites((void **)player->sprites_down, 5);
-		free_sprites((void **)player->sprites_left, 5);
-		free_sprites((void **)player->sprites_right, 5);
 
-		free(player->sprites_up);
-		free(player->sprites_down);
-		free(player->sprites_left);
-		free(player->sprites_right);
-
-		free(player);
+		free_sprites(res->data.mlx_ptr, (void **)res->player->sprites_up, 5);
+		free_sprites(res->data.mlx_ptr, (void **)res->player->sprites_down, 5);
+		free_sprites(res->data.mlx_ptr, (void **)res->player->sprites_left, 5);
+		free_sprites(res->data.mlx_ptr, (void **)res->player->sprites_right, 5);
+		free(res->player);
+		res->player = NULL;
 	}
-
-	exit(1);
 }
 
 void display_steps(t_resources *resources)

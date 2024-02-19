@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 22:40:40 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/16 18:33:10 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/19 20:51:32 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,17 @@ void set_player_position(t_resources *res)
 			x++;
 		}
 		y++;
+	}
+}
+
+void init_array_null(void **array, int count)
+{
+	int i;
+
+	i = 0;
+	while (i < count)
+	{
+		array[i] = NULL;
+		i++;
 	}
 }

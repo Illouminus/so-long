@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 22:12:00 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/16 16:10:45 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/19 22:12:45 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void update_map_for_player(t_game_map *map, t_player *player)
 		map->map_data[player->prev_y][player->prev_x] = '0';
 
 	map->map_data[player->y][player->x] = 'P';
-
 	player->prev_x = player->x;
 	player->prev_y = player->y;
 }
@@ -62,6 +61,17 @@ void handle_player_movement(int keysym, t_resources *res)
 		if (res->game_map->map_data[newY][newX] == 'E' && res->sheep_count == 0)
 		{
 			end_game(res, 1);
+		}
+
+		// Проверка на столкновение с врагом (противником) переписать на while
+		for (int i = 0; i < res->enemy_count; i++)
+		{
+			if (newX == res->enemy[i].x && newY == res->enemy[i].y)
+			{
+				// Столкновение с врагом, игра завершается
+				end_game(res, 0); // 0 означает проигрыш
+				return;				// Выходим из функции, дальнейшее движение не обрабатывается
+			}
 		}
 		if (res->game_map->map_data[newY][newX] != '1')
 		{

@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 14:02:23 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/16 16:20:46 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/19 21:49:53 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@ int keypress_count = 0;
 
 int game_loop(t_resources *resources)
 {
-	static clock_t last_update = 0;
-	clock_t current_time = clock();
+	static clock_t last_update = 0; // NORME
+	clock_t current_time;
+
+	current_time = clock();
 
 	if ((current_time - last_update) > CLOCKS_PER_SEC / 20)
 	{
 		mlx_clear_window(resources->data.mlx_ptr, resources->data.win_ptr);
 		ft_put_textures(resources);
-
 		updateSheepAnimation(resources->sheep, 2, 4);
 		if (resources->player->is_moving)
 			updatePlayerAnimation(resources->player, 4);
@@ -38,7 +39,6 @@ int game_loop(t_resources *resources)
 		display_steps(resources);
 		last_update = current_time;
 	}
-
 	return (0);
 }
 
@@ -61,14 +61,12 @@ int main(int argc, char **argv)
 {
 	t_resources res;
 	ft_bzero(&res, sizeof(t_resources));
-
 	init_resources_and_mlx(&res);
 	setup_game_environment(&res, argc, argv);
 	mlx_hook(res.data.win_ptr, 2, 0, &on_keypress, &res);
 	mlx_hook(res.data.win_ptr, 17, 0, &on_destroy, &res);
 	mlx_loop_hook(res.data.mlx_ptr, &game_loop, &res);
 	mlx_loop(res.data.mlx_ptr);
-
 	free_resources(&res);
 	return 0;
 }

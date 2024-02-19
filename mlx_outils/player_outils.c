@@ -6,7 +6,7 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 20:58:13 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/16 15:33:58 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/19 21:11:39 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void init_player(t_resources *resources)
 	resources->player->sprites_right = malloc(sizeof(void *) * 5);
 	if (!resources->player->sprites_right)
 		free_resources(resources);
-
 	upload_player_sprites(resources);
 }
 

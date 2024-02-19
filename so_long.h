@@ -111,6 +111,7 @@ void setup_game_environment(t_resources *res, int argc, char **argv);
 void display_steps(t_resources *resources);
 void end_game(t_resources *res, int win);
 void set_player_position(t_resources *res);
+void init_array_null(void **array, int count);
 
 // CHECKERS
 int check_params(int argc, char **argv, int fd);
@@ -143,6 +144,7 @@ void drawSheep(t_data *data, t_sheep *sheep);
 void updateSheepAnimation(t_sheep *sheep, int interval, int sprite_count);
 void sheep_draw_layer(t_resources *res, int y, int x);
 void sheep_count(t_resources *res);
+void free_sheep_sprites(t_sheep *sheep, void *mlx_ptr);
 
 // PLAYER FUNCTIONS
 void upload_player_sprites(t_resources *s_resources);
@@ -150,7 +152,7 @@ void init_player(t_resources *resources);
 void drawPlayer(t_resources *resources);
 void handle_player_movement(int keysym, t_resources *res);
 void updatePlayerAnimation(t_player *player, int interval);
-void free_player(t_player *player);
+void free_player(t_resources *res);
 void player_draw_layer(t_resources *res, int y, int x);
 
 // ENEMY FUNCTIONS

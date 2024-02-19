@@ -6,13 +6,13 @@
 /*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 11:34:48 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/16 15:58:00 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/19 21:21:35 by edouard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-static void free_sheep_sprites(t_sheep *sheep, void *mlx_ptr)
+void free_sheep_sprites(t_sheep *sheep, void *mlx_ptr)
 {
 	if (sheep && sheep->sprites)
 	{
