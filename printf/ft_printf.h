@@ -3,32 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:05:21 by ebaillot          #+#    #+#             */
-/*   Updated: 2024/01/21 19:11:46 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/24 17:49:01 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
-#define FT_PRINTF_H
+# define FT_PRINTF_H
 
-#include <stdarg.h>
-#include <stdio.h>
-#include <unistd.h>
+# include <stdarg.h>
+# include <stdio.h>
+# include <unistd.h>
 
-int ft_printf(const char *format, ...);
+int	ft_printf(const char *format, ...);
 
-int ft_putchar_p(char c);
+int	ft_putchar_p(char c);
 
-int ft_putstr_p(char *s);
+int	ft_putstr_p(char *s);
 
-int ft_print_pointer(void *ptr);
+int	ft_print_pointer(void *ptr);
 
-int ft_putnbr_p(int nb);
+int	ft_putnbr_p(int nb);
 
-int ft_putnbr_base_p(unsigned long nbr, char *base);
+int	ft_putnbr_base_p(unsigned long nbr, char *base);
 
-int get_variadic(char *t, va_list *args);
+int	get_variadic(char *t, va_list *args);
 
 #endif

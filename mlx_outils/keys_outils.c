@@ -6,7 +6,7 @@
 /*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 22:12:00 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/24 15:42:08 by ebaillot         ###   ########.fr       */
+/*   Updated: 2024/02/24 17:38:12 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,28 +24,28 @@ static void	update_map_for_player(t_game_map *map, t_player *player)
 void	update_player_position(int keysym, t_resources *res, int *newX,
 		int *newY)
 {
-	switch (keysym)
+	if (keysym == 119)
 	{
-	case 119: // W
 		(*newY)--;
 		res->player->direction = 'W';
-		break ;
-	case 97: // A
+	}
+	else if (keysym == 97)
+	{
 		(*newX)--;
 		res->player->direction = 'A';
-		break ;
-	case 115: // S
+	}
+	else if (keysym == 115)
+	{
 		(*newY)++;
 		res->player->direction = 'S';
-		break ;
-	case 100: // D
+	}
+	else if (keysym == 100)
+	{
 		(*newX)++;
 		res->player->direction = 'D';
-		break ;
-	default:
-		res->player->is_moving = false;
-		return ;
 	}
+	else
+		res->player->is_moving = false;
 	res->player->is_moving = true;
 }
 
@@ -75,18 +75,18 @@ bool	check_collision(t_resources *res, int newX, int newY)
 
 void	move_player(int keysym, t_resources *res)
 {
-	int	newX;
-	int	newY;
+	int	new_x;
+	int	new_y;
 
-	newX = res->player->x;
-	newY = res->player->y;
-	update_player_position(keysym, res, &newX, &newY);
+	new_x = res->player->x;
+	new_y = res->player->y;
+	update_player_position(keysym, res, &new_x, &new_y);
 	if (!res->player->is_moving)
 		return ;
-	if (check_collision(res, newX, newY))
+	if (check_collision(res, new_x, new_y))
 	{
-		res->player->x = newX;
-		res->player->y = newY;
+		res->player->x = new_x;
+		res->player->y = new_y;
 		res->player->steps++;
 		update_map_for_player(res->game_map, res->player);
 	}

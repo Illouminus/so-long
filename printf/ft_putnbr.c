@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 16:14:09 by ebaillot          #+#    #+#             */
-/*   Updated: 2024/01/21 19:10:32 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/24 17:49:42 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int ft_putnbr_p(int nb)
+int	ft_putnbr_p(int nb)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	if (nb == -2147483648)

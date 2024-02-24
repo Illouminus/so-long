@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 11:11:54 by ebaillot          #+#    #+#             */
-/*   Updated: 2024/01/21 19:11:32 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/24 17:48:52 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int get_variadic(char *t, va_list *args)
+int	get_variadic(char *t, va_list *args)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	if (*t == 'c')
@@ -29,10 +29,10 @@ int get_variadic(char *t, va_list *args)
 		count += ft_putnbr_base_p(va_arg(*args, unsigned int), "0123456789");
 	else if (*t == 'x')
 		count += ft_putnbr_base_p(va_arg(*args, unsigned int),
-										  "0123456789abcdef");
+				"0123456789abcdef");
 	else if (*t == 'X')
 		count += ft_putnbr_base_p(va_arg(*args, unsigned int),
-										  "0123456789ABCDEF");
+				"0123456789ABCDEF");
 	else if (*t == '%')
 		count += ft_putchar_p('%');
 	else
@@ -40,10 +40,10 @@ int get_variadic(char *t, va_list *args)
 	return (count);
 }
 
-int ft_printf(const char *format, ...)
+int	ft_printf(const char *format, ...)
 {
-	va_list args;
-	int count;
+	va_list	args;
+	int		count;
 
 	count = 0;
 	va_start(args, format);

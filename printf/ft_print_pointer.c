@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_pointer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 11:08:02 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/21 19:07:55 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/24 17:48:43 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int ft_print_pointer(void *ptr)
+int	ft_print_pointer(void *ptr)
 {
-	unsigned long ptr_val;
-	int count;
+	unsigned long	ptr_val;
+	int				count;
 
 	if (!ptr)
 	{

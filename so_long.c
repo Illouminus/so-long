@@ -6,13 +6,11 @@
 /*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 14:02:23 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/24 15:22:50 by ebaillot         ###   ########.fr       */
+/*   Updated: 2024/02/24 17:38:49 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	keypress_count = 0;
 
 int	game_loop(t_resources *resources)
 {
@@ -24,17 +22,17 @@ int	game_loop(t_resources *resources)
 	{
 		mlx_clear_window(resources->data.mlx_ptr, resources->data.win_ptr);
 		ft_put_textures(resources);
-		updateSheepAnimation(resources->sheep, 2, 4);
+		update_sheep_animation(resources->sheep, 2, 4);
 		if (resources->player->is_moving)
-			updatePlayerAnimation(resources->player, 4);
+			update_player_animation(resources->player, 4);
 		else
 			resources->player->current_sprite = 0;
 		if (resources->enemy_count > 0)
-			updateEnemyPatrol(resources);
-		updateEnemyAnimation(&resources->enemy[0], 8);
-		updateEnemyAnimation(&resources->enemy[1], 8);
-		updateEnemyAnimation(&resources->enemy[2], 8);
-		updateEnemyAnimation(&resources->enemy[3], 8);
+			update_enemy_patrol(resources);
+		update_enemy_animation(&resources->enemy[0], 8);
+		update_enemy_animation(&resources->enemy[1], 8);
+		update_enemy_animation(&resources->enemy[2], 8);
+		update_enemy_animation(&resources->enemy[3], 8);
 		display_steps(resources);
 		last_update = current_time;
 	}

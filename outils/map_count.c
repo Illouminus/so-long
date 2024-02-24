@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   map_count.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 22:40:40 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/19 20:51:32 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/24 17:19:37 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void set_player_position(t_resources *res)
+void	set_player_position(t_resources *res)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
 	y = 0;
 	while (y < res->game_map->map_height)
@@ -34,9 +34,9 @@ void set_player_position(t_resources *res)
 	}
 }
 
-void init_array_null(void **array, int count)
+void	init_array_null(void **array, int count)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < count)

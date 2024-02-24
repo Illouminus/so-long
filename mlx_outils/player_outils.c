@@ -6,7 +6,7 @@
 /*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 20:58:13 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/24 15:39:11 by ebaillot         ###   ########.fr       */
+/*   Updated: 2024/02/24 17:40:47 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	init_player(t_resources *resources)
 	upload_player_sprites(resources);
 }
 
-void	updatePlayerAnimation(t_player *player, int interval)
+void	update_player_animation(t_player *player, int interval)
 {
 	clock_t	current_time;
 
@@ -73,31 +73,25 @@ void	updatePlayerAnimation(t_player *player, int interval)
 		player->current_sprite = 0;
 }
 
-void	drawPlayer(t_resources *resources)
+void	draw_player(t_resources *resources)
 {
 	t_player	*player;
 	void		*sprite_to_draw;
 
 	player = resources->player;
 	sprite_to_draw = NULL;
-	switch (player->direction)
-	{
-	case 'W':
+	if (player->direction == 'W')
 		sprite_to_draw = player->sprites_up[player->current_sprite];
-		break ;
-	case 'S':
+	else if (player->direction == 'S')
 		sprite_to_draw = player->sprites_down[player->current_sprite];
-		break ;
-	case 'A':
+	else if (player->direction == 'A')
 		sprite_to_draw = player->sprites_left[player->current_sprite];
-		break ;
-	case 'D':
+	else if (player->direction == 'D')
 		sprite_to_draw = player->sprites_right[player->current_sprite];
-		break ;
-	}
 	if (sprite_to_draw)
+	{
 		mlx_put_image_to_window(resources->data.mlx_ptr,
 			resources->data.win_ptr, sprite_to_draw, player->x * 64, player->y
 			* 64);
-	
+	}
 }

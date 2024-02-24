@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 15:27:55 by ebaillot          #+#    #+#             */
-/*   Updated: 2024/01/21 19:11:53 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/24 17:49:06 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-unsigned int ft_strlen_p(char *str)
+unsigned int	ft_strlen_p(char *str)
 {
-	unsigned int length;
+	unsigned int	length;
 
 	length = 0;
 	while (str[length])
@@ -24,11 +24,11 @@ unsigned int ft_strlen_p(char *str)
 	return (length);
 }
 
-int check_base(char *base)
+int	check_base(char *base)
 {
-	int i;
-	char prev_char;
-	char current_char;
+	int		i;
+	char	prev_char;
+	char	current_char;
 
 	i = 0;
 	prev_char = '\0';
@@ -47,10 +47,10 @@ int check_base(char *base)
 	return (1);
 }
 
-int ft_putnbr_base_p(unsigned long nbr, char *base)
+int	ft_putnbr_base_p(unsigned long nbr, char *base)
 {
-	unsigned long length_base;
-	int count;
+	unsigned long	length_base;
+	int				count;
 
 	count = 0;
 	length_base = ft_strlen_p(base);

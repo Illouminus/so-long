@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_game.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/24 16:49:18 by ebaillot          #+#    #+#             */
+/*   Updated: 2024/02/24 17:14:22 by ebaillot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../so_long.h"
 
-static int	player_presence = 0;
-static int	exit_presence = 0;
-static int	collectible_presence = 0;
+static int	g_player_presence = 0;
+static int	g_exit_presence = 0;
+static int	g_collectible_presence = 0;
 
 void	reset_game_checks(void)
 {
-	player_presence = 0;
-	exit_presence = 0;
-	collectible_presence = 0;
+	g_player_presence = 0;
+	g_exit_presence = 0;
+	g_collectible_presence = 0;
 }
 
 static int	check_player_presence(char *line)
@@ -20,11 +32,11 @@ static int	check_player_presence(char *line)
 	{
 		if (line[i] == 'P')
 		{
-			player_presence++;
+			g_player_presence++;
 		}
 		i++;
 	}
-	return (player_presence <= 1);
+	return (g_player_presence <= 1);
 }
 
 static int	check_exit_presence(char *line)
@@ -36,11 +48,11 @@ static int	check_exit_presence(char *line)
 	{
 		if (line[i] == 'E')
 		{
-			exit_presence++;
+			g_exit_presence++;
 		}
 		i++;
 	}
-	return (exit_presence <= 1);
+	return (g_exit_presence <= 1);
 }
 
 static int	check_collectibles_presence(char *line)
@@ -52,11 +64,11 @@ static int	check_collectibles_presence(char *line)
 	{
 		if (line[i] == 'C')
 		{
-			collectible_presence++;
+			g_collectible_presence++;
 		}
 		i++;
 	}
-	return (collectible_presence > 0);
+	return (g_collectible_presence > 0);
 }
 
 int	check_game(char *line)

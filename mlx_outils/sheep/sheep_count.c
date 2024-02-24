@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   sheep_count.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:30:12 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/14 10:03:30 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/24 17:32:11 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void sheep_count(t_resources *res)
+void	sheep_count(t_resources *res)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
 	res->sheep_count = 0;
 	y = 0;
