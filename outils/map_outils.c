@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_outils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 11:48:08 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/19 20:53:02 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/24 15:08:47 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,7 @@ static int process_line(char *line, t_resources *resources, int num_of_lines, in
 		line_type = 2; // Type de ligne pour le corps
 
 	if (line_type == 2 && !check_game(line))
-	{
-		// En cas d'erreur dans la vérification du jeu, libérer la carte et signaler une erreur
-		free_game_map(&resources->game_map);
-		print_errors("Erreur dans la carte du jeu");
-		return 0;
-	}
+		free_resources(resources);
 	if (check_rectangular(line) && check_walls(line, line_type))
 		init_array(line, resources, current_line);
 	return 1; // Succès
@@ -74,7 +69,7 @@ static int process_line(char *line, t_resources *resources, int num_of_lines, in
 static void init_map_const(t_resources *resources, int num_of_lines)
 {
 	resources->game_map->map_height = num_of_lines;
-	resources->game_map->map_length = -1; // La longueur de la carte sera déterminée plus tard
+	resources->game_map->map_length = -1; 
 	resources->game_map->usual_texture_height = 64;
 	resources->game_map->usual_texture_width = 64;
 	resources->game_map->floor = NULL;
@@ -95,7 +90,6 @@ void read_and_process_lines(int fd, t_resources *resources, int num_of_lines)
 	{
 		if (!process_line(line, resources, num_of_lines, current_line))
 		{
-			// En cas d'erreur, libérer la ligne et fermer le fichier
 			free(line);
 			close(fd);
 			return;
@@ -103,5 +97,5 @@ void read_and_process_lines(int fd, t_resources *resources, int num_of_lines)
 		free(line);
 		current_line++;
 	}
-	close(fd); // Fermer le fichier après avoir traité toutes les lignes
+	close(fd); 
 }

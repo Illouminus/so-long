@@ -3,25 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 14:02:23 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/19 21:49:53 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/24 15:22:50 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int keypress_count = 0;
+int	keypress_count = 0;
 
-int game_loop(t_resources *resources)
+int	game_loop(t_resources *resources)
 {
-	static clock_t last_update = 0; // NORME
-	clock_t current_time;
+	clock_t			current_time;
+	static clock_t	last_update = 0;
 
 	current_time = clock();
-
-	if ((current_time - last_update) > CLOCKS_PER_SEC / 20)
+	if ((current_time - last_update) > CLOCKS_PER_SEC / 5)
 	{
 		mlx_clear_window(resources->data.mlx_ptr, resources->data.win_ptr);
 		ft_put_textures(resources);
@@ -42,31 +41,32 @@ int game_loop(t_resources *resources)
 	return (0);
 }
 
-int on_destroy(t_resources *res)
+int	on_destroy(t_resources *res)
 {
-	mlx_destroy_window(res->data.mlx_ptr, res->data.win_ptr);
 	free_resources(res);
 	exit(0);
 	return (0);
 }
 
-int on_keypress(int keysym, t_resources *data)
+int	on_keypress(int keysym, t_resources *data)
 {
-	printf("Keypress #%d: %d\n", ++keypress_count, keysym);
+	if (keysym == 65307)
+		end_game(data, 0);
 	handle_player_movement(keysym, data);
 	return (0);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_resources res;
+	t_resources	res;
+
 	ft_bzero(&res, sizeof(t_resources));
 	init_resources_and_mlx(&res);
 	setup_game_environment(&res, argc, argv);
-	mlx_hook(res.data.win_ptr, 2, 0, &on_keypress, &res);
-	mlx_hook(res.data.win_ptr, 17, 0, &on_destroy, &res);
+	mlx_hook(res.data.win_ptr, 2, 1L << 0, &on_keypress, &res);
+	mlx_hook(res.data.win_ptr, 17, 1L << 4, &on_destroy, &res);
 	mlx_loop_hook(res.data.mlx_ptr, &game_loop, &res);
 	mlx_loop(res.data.mlx_ptr);
 	free_resources(&res);
-	return 0;
+	return (0);
 }

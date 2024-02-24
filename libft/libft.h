@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 13:39:19 by ebaillot          #+#    #+#             */
-/*   Updated: 2024/01/22 21:29:32 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/24 15:28:56 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ char *ft_strchr(const char *s, int c);
 char *ft_strrchr(const char *s, int c);
 
 int ft_strncmp(const char *s1, const char *s2, size_t n);
+
+int	ft_strcmp(const char *s1, const char *s2);
 
 void *ft_memchr(const void *s, int c, size_t n);
 

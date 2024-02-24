@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 12:40:45 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/19 21:16:59 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/24 14:42:55 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ void free_player(t_resources *res)
 		free_sprites(res->data.mlx_ptr, (void **)res->player->sprites_down, 5);
 		free_sprites(res->data.mlx_ptr, (void **)res->player->sprites_left, 5);
 		free_sprites(res->data.mlx_ptr, (void **)res->player->sprites_right, 5);
+		free(res->player->sprites_up);
+		free(res->player->sprites_down);
+		free(res->player->sprites_left);
+		free(res->player->sprites_right);
+
 		free(res->player);
 		res->player = NULL;
 	}

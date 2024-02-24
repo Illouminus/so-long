@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_outils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:46:07 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/19 22:07:05 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/24 14:09:19 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void init_enemy(t_resources *resources)
 		free(available_positions); // Освобождаем память для массива доступных позиций
 		free_resources(resources);
 		print_errors("Malloc error in init enemy function\n");
+		return ;
 	}
 
 	init_enemy_positions(resources, available_positions, available_positions_count); // Используем изменённый вызов

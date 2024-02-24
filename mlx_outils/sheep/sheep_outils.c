@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sheep_outils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 11:34:48 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/19 21:21:35 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/24 14:25:41 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void init_and_load_sheep(t_resources *res)
 	int i;
 	char *str;
 	char *temp;
+	char *number_sheep;
 
 	i = 0;
 	init_sheep(res);
@@ -64,17 +65,15 @@ void init_and_load_sheep(t_resources *res)
 
 	while (i < 4)
 	{
-		temp = ft_strjoin("./textures/sheep/sheep_", ft_itoa(i + 1));
+		number_sheep = ft_itoa(i + 1);
+		temp = ft_strjoin("./textures/sheep/sheep_", number_sheep);
 		str = ft_strjoin(temp, ".xpm");
 		free(temp);
+		free(number_sheep);
 		res->sheep->sprites[i] = mlx_xpm_file_to_image(res->data.mlx_ptr, str, &res->game_map->usual_texture_width, &res->game_map->usual_texture_height);
 		free(str);
 		if (!res->sheep->sprites[i])
-		{
-			free_sheep_sprites(res->sheep, res->data.mlx_ptr);
 			free_resources(res);
-			print_errors("Failed to load sheep sprite\n");
-		}
 		i++;
 	}
 }
@@ -87,7 +86,7 @@ void updateSheepAnimation(t_sheep *sheep, int interval, int sprite_count)
 	clock_t current_time = clock();
 
 	// Проверяем, пора ли обновить анимацию
-	if ((current_time - sheep->last_update) > (unsigned long)interval)
+	if ((current_time - sheep->last_update) > (clock_t)interval)
 	{
 		sheep->current_sprite = (sheep->current_sprite + 1) % sprite_count;
 		sheep->last_update = current_time;

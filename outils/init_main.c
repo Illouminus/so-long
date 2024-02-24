@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:29:30 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/19 22:02:39 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/24 15:33:20 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void init_resources_and_mlx(t_resources *res)
+void	init_resources_and_mlx(t_resources *res)
 {
 	res->sheep = malloc(sizeof(t_sheep));
 	if (!res->sheep)
@@ -28,15 +28,16 @@ void init_resources_and_mlx(t_resources *res)
 	}
 }
 
-void setup_game_environment(t_resources *res, int argc, char **argv)
+void	setup_game_environment(t_resources *res, int argc, char **argv)
 {
-	int fd = open(argv[1], O_RDONLY);
+	int	fd;
+
+	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
 		free_resources(res);
 		print_errors("Error: File not found\n");
 	}
-
 	if (!check_params(argc, argv, fd))
 	{
 		close(fd);
@@ -45,13 +46,11 @@ void setup_game_environment(t_resources *res, int argc, char **argv)
 	}
 	init_game_map(fd, res, argv[1]);
 	close(fd);
-
-	res->data.win_ptr = mlx_new_window(res->data.mlx_ptr, res->game_map->map_length * 62, res->game_map->map_height * 64, "So Long");
+	res->data.win_ptr = mlx_new_window(res->data.mlx_ptr,
+			res->game_map->map_length * 62, res->game_map->map_height * 64,
+			"So Long");
 	if (!res->data.win_ptr)
-	{
 		free_resources(res);
-		print_errors("Error: Failed to create MLX window\n");
-	}
 	init_player(res);
 	init_enemy(res);
 	load_map(res);

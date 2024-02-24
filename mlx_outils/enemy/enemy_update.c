@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_update.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edouard <edouard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:58:00 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/16 16:22:10 by edouard          ###   ########.fr       */
+/*   Updated: 2024/02/20 14:50:58 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void updateEnemyPatrol(t_resources *resources)
 void updateEnemyAnimation(t_enemy *enemy, int interval)
 {
 	clock_t current_time = clock();
-	if ((current_time - enemy->last_update) > (unsigned long)interval)
+	if ((current_time - enemy->last_update) > (clock_t)interval)
 	{
 		enemy->current_sprite = (enemy->current_sprite + 1) % enemy->frame_count;
 		enemy->last_update = current_time;
