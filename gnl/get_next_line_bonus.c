@@ -6,7 +6,7 @@
 /*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 12:17:46 by edouard           #+#    #+#             */
-/*   Updated: 2024/01/15 14:29:48 by ebaillot         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:55:39 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*ft_strchr(const char *s, int c)
 }
 
 /* get_next_line */
-char	*get_next_line(int fd)
+char	*get_next_line_bonus(int fd)
 {
 	static char	*buffer[1024];
 

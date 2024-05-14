@@ -6,7 +6,7 @@
 /*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 12:40:45 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/24 17:48:23 by ebaillot         ###   ########.fr       */
+/*   Updated: 2024/03/08 14:45:04 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	display_steps(t_resources *resources)
 	if (!final)
 		return ;
 	color = 0xFF0000;
-	mlx_string_put(resources->data.mlx_ptr, resources->data.win_ptr, 100, 100,
+	mlx_string_put(resources->data.mlx_ptr, resources->data.win_ptr, 70, 100,
 		color, final);
 	free(final);
 }

@@ -6,7 +6,7 @@
 /*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:58:00 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/24 17:27:00 by ebaillot         ###   ########.fr       */
+/*   Updated: 2024/03/08 15:33:02 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static void	update_map_for_enemy(t_game_map *map, t_enemy *enemy,
 	current_position = map->map_data[enemy->y][enemy->x];
 	if (current_position == 'P')
 		end_game(res, 0);
-	if (current_position != 'C' && current_position != 'N')
+	if (current_position != 'C' && current_position != 'N'
+		&& current_position != 'E')
 		map->map_data[enemy->y][enemy->x] = 'N';
 	enemy->prev_x = enemy->x;
 	enemy->prev_y = enemy->y;
@@ -35,7 +36,7 @@ static bool	can_move_to(t_game_map *map, int x, int y)
 	if (x < 1 || x >= map->map_length || y < 1 || y >= map->map_height)
 		return (false);
 	cell = map->map_data[y][x];
-	if (cell == '1' || cell == 'C' || cell == 'N')
+	if (cell == '1' || cell == 'C' || cell == 'N' || cell == 'E')
 		return (false);
 	return (true);
 }
@@ -70,9 +71,10 @@ bool	choose_enemy_direction(t_resources *resources, int i,
 
 void	update_enemy_patrol(t_resources *resources)
 {
-	int	directions[4][2] = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
 	int	i;
+	int	directions[4][2];
 
+	fill_directions(directions);
 	i = 0;
 	while (i < resources->enemy_count)
 	{

@@ -6,7 +6,7 @@
 /*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 17:13:23 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/24 16:23:45 by ebaillot         ###   ########.fr       */
+/*   Updated: 2024/03/18 14:46:44 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,18 @@ static void	free_graphic_and_additional_resources(t_resources *res)
 		return ;
 	if (res->sheep)
 	{
-		free_sheep_sprites(res->sheep, res->data.mlx_ptr);
+		if (res->sheep->sprites)
+			free_sheep_sprites(res->sheep, res->data.mlx_ptr);
 		free(res->sheep);
 		res->sheep = NULL;
 	}
+	res->sheep_count = 0;
 	if (res->data.win_ptr)
-	{
 		mlx_destroy_window(res->data.mlx_ptr, res->data.win_ptr);
+	if(res->data.mlx_ptr)
+	{
+		mlx_destroy_display(res->data.mlx_ptr);
+		free(res->data.mlx_ptr);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 12:17:46 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/24 14:26:03 by ebaillot         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:23:33 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ char	*process_line(char **buffer)
 		temp = ft_strdup(temp + 1);
 		free(*buffer);
 		*buffer = temp;
+		
 	}
 	else
 	{

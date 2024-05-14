@@ -6,7 +6,7 @@
 /*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 16:29:35 by ebaillot          #+#    #+#             */
-/*   Updated: 2024/02/24 17:50:37 by ebaillot         ###   ########.fr       */
+/*   Updated: 2024/03/18 14:54:55 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,11 +136,15 @@ void			init_array_null(void **array, int count);
 // CHECKERS
 int				check_params(int argc, char **argv, int fd);
 void			print_errors(char *error);
-int				check_walls(char *line, int line_type);
-int				check_rectangular(char *line);
+int				check_walls(char *line, int line_type, t_resources *res);
+int				check_rectangular(char *line, t_resources *res);
 int				check_game(char *line);
 void			reset_game_checks(void);
 bool			check_path_exists(t_game_map *map, int itemsCount);
+void			validate_map(t_resources *res);
+void			check_player_presence(char *line);
+void			check_exit_presence(char *line);
+void			check_collectibles_presence(char *line);
 
 // HOOKS
 int				on_destroy(t_resources *res);
@@ -191,4 +195,5 @@ void			init_enemy_positions(t_resources *resources,
 					t_pos *available_positions, int available_positions_count);
 t_pos			*get_available_positions_for_enemies(t_resources *resources,
 					int *available_positions_count);
+void			fill_directions(int directions[4][2]);
 #endif

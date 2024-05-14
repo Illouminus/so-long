@@ -6,7 +6,7 @@
 /*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 11:48:08 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/24 17:18:23 by ebaillot         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:56:09 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,8 @@ static int	process_line(char *line, t_resources *resources, int num_of_lines,
 		line_type = 3;
 	else
 		line_type = 2;
-	if (line_type == 2 && !check_game(line))
-		free_resources(resources);
-	if (check_rectangular(line) && check_walls(line, line_type))
+	check_game(line);
+	if (check_rectangular(line, resources) && check_walls(line, line_type, resources))
 		init_array(line, resources, current_line);
 	return (1);
 }
@@ -87,14 +86,13 @@ void	read_and_process_lines(int fd, t_resources *resources, int num_of_lines)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
-		{
 			break ;
-		}
 		if (!process_line(line, resources, num_of_lines, current_line))
 		{
 			free(line);
 			close(fd);
-			return ;
+			free_resources(resources);
+			exit(1);
 		}
 		free(line);
 		current_line++;

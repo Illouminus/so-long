@@ -6,7 +6,7 @@
 /*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 14:02:23 by edouard           #+#    #+#             */
-/*   Updated: 2024/02/24 17:38:49 by ebaillot         ###   ########.fr       */
+/*   Updated: 2024/03/08 17:57:46 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	game_loop(t_resources *resources)
 	static clock_t	last_update = 0;
 
 	current_time = clock();
-	if ((current_time - last_update) > CLOCKS_PER_SEC / 5)
+	if ((current_time - last_update) > CLOCKS_PER_SEC / 4)
 	{
 		mlx_clear_window(resources->data.mlx_ptr, resources->data.win_ptr);
 		ft_put_textures(resources);

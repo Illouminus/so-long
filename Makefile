@@ -1,7 +1,7 @@
 NAME = so_long
-CC = gcc -g
+CC = cc -g
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 
 LIBFT = ./libft/libft.a

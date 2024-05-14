@@ -6,7 +6,7 @@
 /*   By: ebaillot <ebaillot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 16:49:18 by ebaillot          #+#    #+#             */
-/*   Updated: 2024/02/24 17:14:22 by ebaillot         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:36:59 by ebaillot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	reset_game_checks(void)
 	g_collectible_presence = 0;
 }
 
-static int	check_player_presence(char *line)
+void	check_player_presence(char *line)
 {
 	int	i;
 
@@ -36,10 +36,9 @@ static int	check_player_presence(char *line)
 		}
 		i++;
 	}
-	return (g_player_presence <= 1);
 }
 
-static int	check_exit_presence(char *line)
+void	check_exit_presence(char *line)
 {
 	int	i;
 
@@ -52,10 +51,9 @@ static int	check_exit_presence(char *line)
 		}
 		i++;
 	}
-	return (g_exit_presence <= 1);
 }
 
-static int	check_collectibles_presence(char *line)
+void	check_collectibles_presence(char *line)
 {
 	int	i;
 
@@ -68,16 +66,24 @@ static int	check_collectibles_presence(char *line)
 		}
 		i++;
 	}
-	return (g_collectible_presence > 0);
 }
 
-int	check_game(char *line)
+void	validate_map(t_resources *res)
 {
-	if (!check_player_presence(line))
-		print_errors("More than one player on map.");
-	if (!check_exit_presence(line))
-		print_errors("More than one exit on map.");
-	if (!check_collectibles_presence(line))
+	if (g_player_presence != 1)
+	{
+		free_resources(res);
+		print_errors("More than one player on map or not player found.");
+	}
+	if (g_exit_presence < 1 || g_exit_presence > 1)
+	{
+		free_resources(res);
+		print_errors("More than one exit on map or not exit found.");
+	}
+	if (g_collectible_presence < 1)
+	{
+		free_resources(res);
 		print_errors("No collectibles on map.");
-	return (1);
+	}
+		
 }
